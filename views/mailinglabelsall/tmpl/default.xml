@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+        <layout title="Mailing Labels to All Campers">
+                <message>
+                        <![CDATA[COM_MUUSA_TOOLS_MAILINGLABELSALL_VIEW_DEFAULT_DESC]]>
+                </message>
+        </layout>
+</metadata>
