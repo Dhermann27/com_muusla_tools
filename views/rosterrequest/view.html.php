@@ -17,11 +17,6 @@ class muusla_toolsViewrosterrequest extends JView
 		$model =& $this->getModel();
 		$user =& JFactory::getUser();
 		$this->assign('years', $model->getYears($user->email));
-		foreach($model->getGroups($user->email) as $group) {
-			if(!in_array("$user->id", explode(",", $group->groups_members))) {
-				$model->updateId($group->groups_id, $user->id);
-			}
-		}
 		parent::display($tpl);
 	}
 }

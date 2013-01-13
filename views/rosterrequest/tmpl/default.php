@@ -17,24 +17,24 @@
 							<tr align="center">
 								<td><?php
 								if(in_array("2012", $this->years)) {
-									echo "<a href='http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=47'><img src='/templates/rt_modulus_j15/images/logo/2012.png'	alt='Download 2012 Roster' /></a><br />2012\n";
+									echo "<a href='index.php/component/docman/doc_download/4'><img src='../images/muusa/2012.png' alt='Download 2012 Roster' /></a><br />2012\n";
 								}?>
 								</td>
 								<td><?php
 								if(in_array("2011", $this->years)) {
-									echo "<a href='http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=50'><img src='/templates/rt_modulus_j15/images/logo/2011.png'	alt='Download 2011 Roster' /></a><br />2011\n";
+									echo "<a href='index.php/component/docman/doc_download/3'><img src='../images/muusa/2011.png' alt='Download 2011 Roster' /></a><br />2011\n";
 								}?>
 								</td>
 							</tr>
 							<tr align="center">
 								<td><?php
 								if(in_array("2010", $this->years)) {
-									echo "<a href='http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=49'><img src='/templates/rt_modulus_j15/images/logo/2010.png'	alt='Download 2010 Roster' /></a><br />2010\n";
+									echo "<a href='index.php/component/docman/doc_download/2'><img src='../images/muusa/2010.png' alt='Download 2010 Roster' /></a><br />2010\n";
 								}?>
 								</td>
 								<td><?php
 								if(in_array("2009", $this->years)) {
-									echo "<a href='http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=51'><img src='/templates/rt_modulus_j15/images/logo/2009.png'	alt='Download 2009 Roster' /></a><br />2009\n";
+									echo "<a href='index.php/component/docman/doc_download/1'><img src='../images/muusa/2009.png' alt='Download 2009 Roster' /></a><br />2009\n";
 								}?></td>
 							</tr>
 						</table>
@@ -44,3 +44,4 @@
 			</td>
 		</tr>
 	</table>
+</div>
