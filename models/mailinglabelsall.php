@@ -21,7 +21,7 @@ class muusla_toolsModelmailinglabelsall extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.firstname firstname, mc.lastname lastname, mc.address1 address1, mc.address2 address2, mc.city city, mc.statecd statecd, mc.zipcd zipcd, IFNULL(CONCAT('Website username: ',j.username),'') username FROM (muusa_campers mc, muusa_fiscalyear mf, muusa_currentyear my) LEFT JOIN jos_users j ON mc.email=j.email WHERE mc.camperid=mf.camperid AND mf.fiscalyear>=(my.year-3) AND mc.hohid=0 GROUP BY mc.camperid ORDER BY mc.lastname, mc.firstname, mc.statecd, mc.city";
+		$query = "SELECT IF(COUNT(DISTINCT mc.camperid)=1, CONCAT(mc.firstname, ' ', mc.lastname), CONCAT('The ', mm.familyname, ' Family')) family, mm.address1, mm.address2, mm.city city, mm.statecd, mm.zipcd FROM muusa_family mm, muusa_campers mc, muusa_fiscalyear mf, muusa_currentyear my WHERE mm.familyid=mc.familyid AND mc.camperid=mf.camperid AND mf.fiscalyear>=(my.year-3) GROUP BY mm.familyid ORDER BY mm.familyname, mm.statecd, mm.city";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}

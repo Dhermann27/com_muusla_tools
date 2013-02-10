@@ -32,17 +32,15 @@ class muusla_toolsViewmailinglabelsall extends JView
 
 		header("Content-Transfer-Encoding: binary");
 
-		echo "Firstname,Lastname,Address1,Address2,City,State,Zip,Username\n";
+		echo "Family,Address1,Address2,City,State,Zip\n";
 
 		foreach ($campers as $camper) {
-			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->firstname)) . ",";
-			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->lastname)) . ",";
+			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->family)) . ",";
 			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->address1)) . ",";
 			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->address2)) . ",";
 			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->city)) . ",";
 			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->statecd)) . ",";
-			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->zipcd)) . ",";
-			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->username)) . "\n";
+			echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->zipcd)) . "\n";
 		}
 		exit(0);
 	}
