@@ -14,9 +14,6 @@ jimport( 'joomla.application.component.view');
 class muusla_toolsViewletters extends JView
 {
 	function display($tpl = null) {
-		$model =& $this->getModel();
-		$this->assignRef('campers', $model->getAllCampers());
-
 		parent::display($tpl);
 	}
 

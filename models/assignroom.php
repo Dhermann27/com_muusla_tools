@@ -21,7 +21,7 @@ class muusla_toolsModelassignroom extends JModel
 {
    function getCampers($familyid) {
       $db =& JFactory::getDBO();
-      $query = "SELECT fiscalyearid, camperid, sexcd, firstname, lastname, programname, roomid FROM muusa_campers_v WHERE familyid=$familyid ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
+      $query = "SELECT fiscalyearid, camperid, sexcd, firstname, lastname, programname, roomid, (SELECT COUNT(*) FROM muusa_charges_v WHERE familyid=$familyid AND chargetypeid IN (1001,1016)) prereg FROM muusa_campers_v WHERE familyid=$familyid ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
       $db->setQuery($query);
       return $db->loadObjectList();
    }

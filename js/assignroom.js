@@ -32,9 +32,7 @@ function submit() {
 	$("#muusaApp div.room").each(function() {
 		var roomid = $("select.roomlist", $(this)).val();
 		$(".roomlist-yes li", $(this)).each(function(index, val) {
-			if (index != 0) {
-				addHidden("fiscalyear-roomid-" + $(this).val(), roomid);
-			}
+			addHidden("fiscalyear-roomid-" + $(this).val(), roomid);
 		});
 	});
 	$("#muusaApp").closest("form").submit();

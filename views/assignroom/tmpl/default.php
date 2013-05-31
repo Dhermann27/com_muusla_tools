@@ -21,8 +21,10 @@
          echo "<div><button id='backDetails'>Return<br />to Camper Details</button></div>\n";
       }?>
       <div id="muusaApp">
-         <div class="componentheading">Assign Room<br />
-         <i>To unassign, drag them to the right side and set the drop to "No Room Assigned"</i></div>
+         <div class="componentheading">
+            Assign Room<br /> <i>To unassign, drag them to the right
+               side and set the drop to "No Room Assigned"</i>
+         </div>
          <h5>Unassigned Campers</h5>
          <table>
             <tr valign="top">
@@ -32,7 +34,11 @@
                      <?php 
                      if(count($this->campers[0]) > 0) {
                         foreach($this->campers[0] as $camper) {
-                           echo "                  <li value='$camper->fiscalyearid' title='$camper->tooltip' class='ui-state-default'>($camper->sexcd) $camper->firstname $camper->lastname ($camper->programname)</li>\n";
+                           echo "                  <li value='$camper->fiscalyearid' ";
+                           if($camper->tooltip != "") {
+                              echo "title='$camper->tooltip' ";
+                           }
+                           echo "class='muusatip ui-state-default'>($camper->sexcd) $camper->firstname $camper->lastname ($camper->programname)</li>\n";
                         }
                      }
                      ?>
@@ -41,9 +47,11 @@
                <td><?php
                $roomid = 0;
                include 'blocks/rooms.php';
-               foreach($this->campers as $roomid => $campers) {
-                  if($roomid != 0) {
-                     include 'blocks/rooms.php';
+               if(count($this->campers) > 0) {
+                  foreach($this->campers as $roomid => $campers) {
+                     if($roomid != 0) {
+                        include 'blocks/rooms.php';
+                     }
                   }
                }
                ?>

@@ -19,22 +19,12 @@ jimport( 'joomla.application.component.model' );
  */
 class muusla_toolsModelletters extends JModel
 {
-	function getAllCampers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, mc.city, mc.statecd FROM muusa_campers_v mc WHERE mc.hohid=0 ORDER BY lastname, firstname, statecd, city";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
 
-	function getCampers($camper) {
+	function getCampers($where) {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mv.camperid camperid, mv.firstname firstname, mv.lastname lastname, mc.address1 address1, mc.address2 address2, mv.city city, mv.statecd statecd, mc.zipcd zipcd, mc.email email, mb.name buildingname, mr.roomnbr roomnbr, mp.name programname, mh.name churchname FROM (muusa_campers_v mv, muusa_campers mc, muusa_programs mp) LEFT JOIN muusa_churches mh ON mc.churchid=mh.churchid LEFT JOIN (muusa_rooms mr, muusa_buildings mb) ON mv.roomid=mr.roomid AND mr.buildingid=mb.buildingid WHERE mv.camperid=mc.camperid AND mc.programid=mp.programid AND mv.hohid=0";
-		if($camper && $camper > 0) {
-			$query .= " AND mv.camperid=$camper";
-		}
-		$query .= " ORDER BY mc.lastname, mc.firstname, mc.statecd, mc.city";
+		$query = "SELECT familyid, familyname, address1, address2, city, statecd, zipcd FROM muusa_family_v $where ORDER BY familyname, statecd, city";
 		$db->setQuery($query);
-		return $db->loadAssocList("camperid");
+		return $db->loadAssocList("familyid");
 	}
 
 	function getChildren() {

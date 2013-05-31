@@ -38,48 +38,53 @@ class muusla_toolsViewassignroom extends JView
             array_push($camperids, $camper->camperid);
          }
          $fiscalyearids = implode(",", $fiscalyearids);
-         $camperids = implode(",", $camperids);
-         $roomtypes = $model->getRoomtypes($fiscalyearids);
-         $roommates = $model->getRoommates($fiscalyearids);
-         $prevrooms = $model->getPreviousRooms($camperids);
-         $rooms = array();
-         foreach($campers as $camper) {
-            $tooltip = "";
-            if(count($roomtypes) > 0 ) {
-               $types = "";
-               foreach($roomtypes as $type) {
-                  if($camper->fiscalyearid == $type->fiscalyearid)
-                     $types .= "$type->name<br />\n";
+         if($fiscalyearids != "") {
+            $camperids = implode(",", $camperids);
+            $roomtypes = $model->getRoomtypes($fiscalyearids);
+            $roommates = $model->getRoommates($fiscalyearids);
+            $prevrooms = $model->getPreviousRooms($camperids);
+            $rooms = array();
+            foreach($campers as $camper) {
+               $tooltip = "";
+               if($camper->prereg > 0) {
+                  $tooltip = "<b>Pre-Registered</b><br />\n";
                }
-               if($types != "") {
-                  $tooltip .= "<u>Desired Room Types</u><br />\n" . $types;
+               if(count($roomtypes) > 0 ) {
+                  $types = "";
+                  foreach($roomtypes as $type) {
+                     if($camper->fiscalyearid == $type->fiscalyearid)
+                        $types .= "$type->name<br />\n";
+                  }
+                  if($types != "") {
+                     $tooltip .= "<u>Desired Room Types</u><br />\n" . $types;
+                  }
                }
-            }
-            if(count($roommates) > 0 ) {
-               $mates = "";
-               foreach($roommates as $mate) {
-                  if($camper->fiscalyearid == $mate->fiscalyearid)
-                     $mates .= "$mate->name<br />\n";
+               if(count($roommates) > 0 ) {
+                  $mates = "";
+                  foreach($roommates as $mate) {
+                     if($camper->fiscalyearid == $mate->fiscalyearid)
+                        $mates .= "$mate->name<br />\n";
+                  }
+                  if($mates != "") {
+                     $tooltip .= "<u>Desired Roommates</u><br />\n" . $mates;
+                  }
                }
-               if($mates != "") {
-                  $tooltip .= "<u>Desired Roommates</u><br />\n" . $mates;
+               if(count($prevrooms) > 0 ) {
+                  $prooms = "";
+                  foreach($prevrooms as $room) {
+                     if($camper->camperid == $room->camperid)
+                        $prooms .= "$room->fiscalyear: $room->name $room->roomnbr<br />\n";
+                  }
+                  if($prooms != "") {
+                     $tooltip .= "<u>Previous Rooms</u><br />\n" . $prooms;
+                  }
                }
-            }
-            if(count($prevrooms) > 0 ) {
-               $prooms = "";
-               foreach($prevrooms as $room) {
-                  if($camper->camperid == $room->camperid)
-                     $prooms .= "$room->fiscalyear: $room->name $room->roomnbr<br />\n";
+               $camper->tooltip = $tooltip;
+               if($rooms[$camper->roomid] != null) {
+                  array_push($rooms[$camper->roomid], $camper);
+               } else {
+                  $rooms[$camper->roomid] = array($camper);
                }
-               if($prooms != "") {
-                  $tooltip .= "<u>Previous Rooms</u><br />\n" . $prooms;
-               }
-            }
-            $camper->tooltip = $tooltip;
-            if($rooms[$camper->roomid] != null) {
-               array_push($rooms[$camper->roomid], $camper);
-            } else {
-               $rooms[$camper->roomid] = array($camper);
             }
          }
          $this->assignRef('campers', $rooms);
