@@ -13,7 +13,7 @@
                <p>
                   After downloading the Confirmation Letters Data file,
                   click <a
-                     href="http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=14">here</a>
+                     href="http://www.muusa.org/index.php/component/docman/doc_download/30">here</a>
                   to download the Confirmation Letter template.
                </p>
                <h3>Using Microsoft Word 2007</h3>
