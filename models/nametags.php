@@ -19,21 +19,10 @@ jimport( 'joomla.application.component.model' );
  */
 class muusla_toolsModelnametags extends JModel
 {
-	function getAllCampers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, mc.city, mc.statecd FROM muusa_campers_v mc ORDER BY lastname, firstname, statecd, city";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
-
-	function getCampers($camper) {
-		$db =& JFactory::getDBO();
-		$query = "SELECT IF(mc.hohid=0,mc.camperid,mc.hohid) orderid, IF(mc.hohid=0,CONCAT(mc.lastname,mc.firstname),(SELECT CONCAT(mo.lastname,mo.firstname) FROM muusa_campers_v mo WHERE mo.camperid=mc.hohid)) orderme, CONCAT(mc.firstname, ' ', mc.lastname) fullname, mc.city city, mc.statecd statecd, mh.name churchname, (SELECT mp.name FROM muusa_credits_v mp WHERE md.camperid=mp.camperid AND mp.name NOT LIKE '%Scholarship%' ORDER BY mp.housing_amount DESC LIMIT 1) positionname, IF((SELECT COUNT(*) FROM muusa_fiscalyear mf, muusa_currentyear my WHERE mc.camperid=mf.camperid AND mf.fiscalyear>=(my.year-999))=1, 'New Camper', IF((SELECT COUNT(*) FROM muusa_fiscalyear mf WHERE mc.camperid=mf.camperid AND mf.fiscalyear>=2009)=1, 'New to Trout Lodge', '')) new FROM (muusa_campers_v mc, muusa_campers md) LEFT JOIN muusa_churches mh ON md.churchid=mh.churchid WHERE mc.camperid=md.camperid ";
-		if($camper && $camper > 0) {
-			$query .= " AND mc.camperid=$camper";
-		}
-		$query .= " GROUP BY mc.camperid ORDER BY orderme, mc.birthdate";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getCampers($where) {
+      $db =& JFactory::getDBO();
+      $query = "SELECT CONCAT(mc.firstname, ' ', mc.lastname) fullname, mc.city, mc.statecd, mc.churchname, mp.positionname, IF(COUNT(mf.fiscalyearid)=1, 'New Camper',IF(COUNT(CASE WHEN mf.fiscalyear>2007 THEN 1 ELSE NULL END)=1, 'New to Trout Lodge','')) new FROM (muusa_campers_v mc, muusa_fiscalyear mf) LEFT JOIN muusa_credits_v mp ON mc.camperid=mp.camperid WHERE mc.camperid=mf.camperid $where GROUP BY mc.camperid ORDER BY mc.familyname, mc.familyid, STR_TO_DATE('%m/%d/%Y', mc.birthdate) DESC";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
 }

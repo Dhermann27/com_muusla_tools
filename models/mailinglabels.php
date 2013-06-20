@@ -21,7 +21,7 @@ class muusla_toolsModelmailinglabels extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mv.firstname firstname, mv.lastname lastname, mc.address1 address1, mc.address2 address2, mv.city city, mv.statecd statecd, mc.zipcd zipcd FROM muusa_campers_v mv, muusa_campers mc WHERE mv.camperid=mc.camperid AND mv.hohid=0 ORDER BY mc.lastname, mc.firstname, mc.statecd, mc.city";
+		$query = "SELECT mv.familyname, mv.address1, mv.address2, mv.city, mv.statecd, mv.zipcd, (SELECT COUNT(*) FROM muusa_campers_v mc WHERE mv.familyid=mc.familyid) count FROM muusa_family_v mv ORDER BY mv.familyname, mv.statecd, mv.city";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
