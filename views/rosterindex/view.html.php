@@ -13,32 +13,33 @@ jimport( 'joomla.application.component.view');
  */
 class muusla_toolsViewrosterindex extends JView
 {
-	function display($tpl = null) {
-		parent::display($tpl);
-	}
+   function display($tpl = null) {
+      parent::display($tpl);
+   }
 
-	function detail($tpl = null) {
-		$model =& $this->getModel();
-		$campers = $model->getCampers();
+   function detail($tpl = null) {
+      $model =& $this->getModel();
+      $campers = $model->getCampers();
 
-		header("Pragma: public");
-		header("Expires: 0"); // set expiration time
-		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-		header("Content-Type: application/force-download");
-		header("Content-Type: application/octet-stream");
-		header("Content-Type: application/download");
+      header("Pragma: public");
+      header("Expires: 0"); // set expiration time
+      header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+      header("Content-Type: application/force-download");
+      header("Content-Type: application/octet-stream");
+      header("Content-Type: application/download");
 
-		header("Content-Disposition: attachment; filename=rosterindexdata.csv;");
+      header("Content-Disposition: attachment; filename=rosterindexdata.csv;");
 
-		header("Content-Transfer-Encoding: binary");
+      header("Content-Transfer-Encoding: binary");
 
-		echo "Camperlastname,Camperfirstname,Hohlastname,Hohfirstname\n";
+      echo "Lastname,Firstname,Familyname\n";
 
-		foreach ($campers as $camper) {
-			echo preg_replace("/&#039;/", "'", $camper->campername) . ",";
-			echo preg_replace("/&#039;/", "'", $camper->hohname) . "\n";
-		}
-		exit(0);
-	}
+      foreach ($campers as $camper) {
+         echo preg_replace("/&#039;/", "'", $camper->lastname) . ",";
+         echo preg_replace("/&#039;/", "'", $camper->firstname) . ",";
+         echo preg_replace("/&#039;/", "'", $camper->familyname) . "\n";
+      }
+      exit(0);
+   }
 }
 ?>

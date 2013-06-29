@@ -21,7 +21,7 @@ class muusla_toolsModelnametags extends JModel
 {
    function getCampers($where) {
       $db =& JFactory::getDBO();
-      $query = "SELECT CONCAT(mc.firstname, ' ', mc.lastname) fullname, mc.city, mc.statecd, mc.churchname, mp.positionname, IF(COUNT(mf.fiscalyearid)=1, 'New Camper',IF(COUNT(CASE WHEN mf.fiscalyear>2007 THEN 1 ELSE NULL END)=1, 'New to Trout Lodge','')) new FROM (muusa_campers_v mc, muusa_fiscalyear mf) LEFT JOIN muusa_credits_v mp ON mc.camperid=mp.camperid WHERE mc.camperid=mf.camperid $where GROUP BY mc.camperid ORDER BY mc.familyname, mc.familyid, STR_TO_DATE('%m/%d/%Y', mc.birthdate) DESC";
+      $query = "SELECT CONCAT(mc.firstname, ' ', mc.lastname) fullname, mc.city, mc.statecd, mc.churchname, mp.positionname, IF(COUNT(mf.fiscalyearid)=1, 'New Camper',IF(COUNT(CASE WHEN mf.fiscalyear>2007 THEN 1 ELSE NULL END)=1, 'New to Trout Lodge','')) new FROM (muusa_campers_v mc, muusa_fiscalyear mf) LEFT JOIN muusa_credits_v mp ON mc.camperid=mp.camperid WHERE mc.camperid=mf.camperid $where GROUP BY mc.camperid ORDER BY mc.familyname, mc.familyid, STR_TO_DATE(mc.birthdate, '%m/%d/%Y') DESC";
       $db->setQuery($query);
       return $db->loadObjectList();
    }

@@ -21,21 +21,21 @@ class muusla_toolsModelroster extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, IF(mc.is_show_address=1,CONCAT(mc.address1, '|', mc.address2, '|', mc.city, '|', mc.statecd, '|', mc.zipcd),'||||') address, IF(mc.is_show_email=1,mc.email,'') email, IF(is_show_birthday=1,DATE_FORMAT(mc.birthdate, '%m/%d'),'') birthdate, mh.name churchname FROM (muusa_campers mc, muusa_campers_v mf) LEFT JOIN muusa_churches mh ON mc.churchid=mh.churchid WHERE mc.camperid=mf.camperid AND mc.hohid=0 AND mc.is_show_all=1 ORDER BY mc.lastname, mc.firstname, mc.statecd, mc.city";
+		$query = "SELECT familyid, familyname, address1,  address2, city, statecd, zipcd FROM muusa_campers_v ORDER BY familyname, statecd, city";
 		$db->setQuery($query);
-		return $db->loadAssocList("camperid");
+		return $db->loadAssocList("familyid");
 	}
 
 	function getChildren() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.hohid, mc.camperid camperid, 0 phones, mc.firstname, mc.lastname, IF(mc.is_show_email=1,mc.email,'') email, IF(is_show_birthday=1,DATE_FORMAT(mc.birthdate, '%m/%d'),'') birthdate FROM muusa_campers mc, muusa_campers_v mf WHERE mc.camperid=mf.camperid AND mc.hohid!=0 AND mc.is_show_all=1 ORDER BY mc.hohid, mc.birthdate";
+		$query = "SELECT familyid, camperid, 0 phones, firstname, lastname, email, SUBSTR(birthdate, 0, 4) FROM muusa_campers_v ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
 
 	function getPhones() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid camperid, mp.name, mn.phonenbr FROM muusa_campers mc, muusa_campers_v mv, muusa_phonenumbers mn, muusa_phonetypes mp WHERE mc.camperid=mv.camperid AND mc.is_show_phone=1 AND mc.camperid=mn.camperid AND mn.phonetypeid=mp.phonetypeid ORDER BY mc.camperid";
+		$query = "SELECT mc.camperid, mp.name, mn.phonenbr FROM muusa_campers_v mc, muusa_phonenumbers mn, muusa_phonetypes mp WHERE mc.camperid=mn.camperid AND mn.phonetypeid=mp.phonetypeid ORDER BY mc.camperid";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}

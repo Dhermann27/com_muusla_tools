@@ -46,7 +46,7 @@ class muusla_toolsViewnametags extends JView
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->statecd)) . ",";
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->churchname)) . ",";
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->positionname)) . ",";
-         echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper->new)) . "\n";
+         echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", "")) . "\n"; // $camper->new)) . "\n";
       }
       exit(0);
    }

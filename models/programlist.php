@@ -21,14 +21,14 @@ class muusla_toolsModelprogramlist extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mv.camperid, mv.lastname, mv.firstname, mv.age, mv.gradeoffset, mv.programname programname, CONCAT(mt.firstname, ' ', mt.lastname) fullname, mt.email, (SELECT phonenbr FROM muusa_phonenumbers mcs WHERE mcs.phonetypeid=1001 AND (mcs.camperid=mt.camperid OR mcs.camperid=mt.hohid) ORDER BY mt.hohid, mt.birthdate LIMIT 0,1) phonenbr, mt.roomnbr room FROM muusa_campers_v mv LEFT JOIN muusa_campers_v mt ON mv.hohid=mt.camperid WHERE mv.programname!='Adult' ORDER BY mv.programname, mv.lastname, mv.firstname";
+		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, mc.programname, mc.age, mc.grade, CONCAT(mp.firstname , ' ', mp.lastname) fullname, mp.email, mr.phonenbr, mp.roomnbr room FROM muusa_campers_v mc LEFT JOIN muusa_campers_v mp ON mp.camperid=(SELECT mt.camperid FROM muusa_campers_v mt LEFT JOIN muusa_phonenumbers mr ON mt.camperid=mr.camperid AND mr.phonetypeid=1001 WHERE mc.familyid=mt.familyid AND mc.camperid!=mt.camperid AND mt.age>17 ORDER BY IF(mr.phonenbr IS NULL,1,0), STR_TO_DATE(mt.birthdate, '%m/%d/%Y') LIMIT 1) LEFT JOIN muusa_phonenumbers mr ON mp.camperid=mr.camperid AND mr.phonetypeid=1001 WHERE mc.programname!='Adult' ORDER BY mc.programname, mc.lastname, mc.firstname";
 		$db->setQuery($query);
 		return $db->loadAssocList("camperid");
 	}
 
 	function getSponsors() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mv.camperid, CONCAT(mp.firstname, ' ', mp.lastname) fullname, (SELECT phonenbr FROM muusa_phonenumbers mcs WHERE mcs.phonetypeid=1001 AND mcs.camperid=mp.camperid ORDER BY mp.hohid, mp.birthdate LIMIT 0,1) phonenbr, mp.email, mp.roomnbr room FROM (muusa_campers_v mv, muusa_campers mc, muusa_campers_v mp) WHERE mv.camperid=mc.camperid AND mc.sponsor IS NOT NULL AND mc.sponsor LIKE CONCAT('%', mp.lastname, '%') AND mc.sponsor LIKE CONCAT('%', mp.firstname, '%')";
+		$query = "SELECT mv.camperid, CONCAT(mp.firstname, ' ', mp.lastname) fullname, (SELECT phonenbr FROM muusa_phonenumbers mcs WHERE mcs.phonetypeid=1001 AND mcs.camperid=mp.camperid) phonenbr, mp.email, mp.roomnbr room FROM (muusa_campers_v mv, muusa_campers_v mp) WHERE mv.sponsor IS NOT NULL AND mv.sponsor LIKE CONCAT('%', mp.lastname, '%') AND mv.sponsor LIKE CONCAT('%', mp.firstname, '%')";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}

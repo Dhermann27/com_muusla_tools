@@ -11,7 +11,7 @@
 		<div class='article-content'><i>Please wait a moment for the download
 		to begin.</i>
 		<p>After downloading the Roster Data file, click <a
-			href="http://www.muusa.org/index.php?option=com_docman&task=doc_download&gid=17">here</a>
+			href="http://www.muusa.org/index.php/component/docman/doc_download/38">here</a>
 		to download the Roster template.</p>
 		<h3>Using Microsoft Word 2007</h3>
 		<ol>
