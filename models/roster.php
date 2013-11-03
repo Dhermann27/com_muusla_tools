@@ -28,14 +28,14 @@ class muusla_toolsModelroster extends JModel
 
 	function getChildren() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT familyid, camperid, 0 phones, firstname, lastname, email, SUBSTR(birthdate, 0, 4) FROM muusa_campers_v ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
+		$query = "SELECT familyid, camperid, 0 phones, firstname, lastname, email, LEFT(birthdate, 5) birthdate FROM muusa_campers_v ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
 
 	function getPhones() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mp.name, mn.phonenbr FROM muusa_campers_v mc, muusa_phonenumbers mn, muusa_phonetypes mp WHERE mc.camperid=mn.camperid AND mn.phonetypeid=mp.phonetypeid ORDER BY mc.camperid";
+		$query = "SELECT mc.camperid, mp.name, mn.phonenbr FROM (muusa_campers_v mc, muusa_phonenumbers mn, muusa_phonetypes mp) WHERE mc.camperid=mn.camperid AND mn.phonetypeid=mp.phonetypeid GROUP BY mc.familyid, mn.phonenbr ORDER BY mc.camperid";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
