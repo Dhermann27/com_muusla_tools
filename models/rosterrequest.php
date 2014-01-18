@@ -21,7 +21,7 @@ class muusla_toolsModelrosterrequest extends JModel
 {
 	function getYears($email) {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mf.fiscalyear FROM muusa_campers mc, muusa_fiscalyear mf WHERE mc.camperid=mf.camperid AND mc.email='$email' ORDER BY mf.fiscalyear DESC";
+		$query = "SELECT ya.year FROM muusa_camper c, muusa_yearattending ya WHERE c.id=ya.camperid AND c.email='$email' ORDER BY ya.year DESC";
 		$db->setQuery($query);
 		return $db->loadResultArray();
 	}
