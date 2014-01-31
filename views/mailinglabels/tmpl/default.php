@@ -4,18 +4,19 @@ if(count($this->labels) > 0) { ?>
 <head>
 <style type="text/stylesheet">
    html { width: 8.5in; margin-top: 0in; margin-bottom: 0in; }
-   table { margin-top: .25in; }
-   td.label { width: 2.325in; height: .98in; padding: 0in .2in; float: left; text-align: left; overflow: hidden; outline: 0px solid; }
+   table { margin-top: .5in; }
+   td.label { width: 2.325in; height: .99in; padding: 0in .2in; float: left; text-align: left; overflow: hidden; outline: 0px solid; color: black;}
    </style>
 </head>
 <body style="margin-left: -.35in; margin-right: -.35in;">
+   <div style='page-break-before: always; font-size: 1pt;'></div>
    <?php
    foreach($this->labels as $counter => $label) {
       if($counter % 30 == 0) echo "<table>\n";
       if($counter % 3 == 0) echo "<tr>\n";
-      echo "<td class='label' style='font-family:arial,sans-serif; font-size:10pt;'>$label->familyname<br />$label->address1<br />";
-      if($label->address2) echo "$label->address2<br />";
-      echo "$label->city, $label->statecd $label->zipcd</td>\n";
+      echo "<td class='label' style='font-family:arial,sans-serif; font-size:10pt;'>$label->familyname<br />$label->address1";
+      if($label->address2) echo ", $label->address2";
+      echo "<br />$label->city, $label->statecd $label->zipcd</td>\n";
       if($counter > 0 && ($counter + 1) % 3 == 0) echo "</tr>\n";
       if($counter > 0 && ($counter + 1) % 30 == 0)
       {
