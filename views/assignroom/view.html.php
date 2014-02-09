@@ -20,12 +20,11 @@ class muusla_toolsViewassignroom extends JView
       $admin = $editcamper && (in_array("8", $user->groups) || in_array("10", $user->groups));
       if($admin && preg_match('/^\d+$/', $editcamper)) {
          foreach(JRequest::get() as $key=>$value) {
-            if(preg_match('/^fiscalyear-roomid-(\d+)$/', $key, $objects)) {
+            if(preg_match('/^yearattending-roomid-(\d+)$/', $key, $objects)) {
                $obj = new stdClass;
-               $obj->fiscalyearid = $this->getSafe($objects[1]);
-               $obj->modified_by = $user->username;
-               $obj->modified_at = date("Y-m-d H:i:s");
+               $obj->id = $this->getSafe($objects[1]);
                $obj->roomid = $this->getSafe($value);
+               $obj->created_by = $user->username;
                $model->assignRoom($obj);
             }
          }
@@ -34,14 +33,13 @@ class muusla_toolsViewassignroom extends JView
          $fiscalyearids = array();
          $camperids = array();
          foreach($campers as $camper) {
-            array_push($fiscalyearids, $camper->fiscalyearid);
-            array_push($camperids, $camper->camperid);
+            array_push($fiscalyearids, $camper->yearattendingid);
+            array_push($camperids, $camper->id);
          }
-         $fiscalyearids = implode(",", $fiscalyearids);
-         if($fiscalyearids != "") {
+         $yearattendingids = implode(",", $fiscalyearids);
+         if($yearattendingids != "") {
             $camperids = implode(",", $camperids);
-            $roomtypes = $model->getRoomtypes($fiscalyearids);
-            $roommates = $model->getRoommates($fiscalyearids);
+            $roommates = $model->getRoommates($yearattendingids);
             $prevrooms = $model->getPreviousRooms($camperids);
             $rooms = array();
             foreach($campers as $camper) {
@@ -49,20 +47,10 @@ class muusla_toolsViewassignroom extends JView
                if($camper->prereg > 0) {
                   $tooltip = "<b>Pre-Registered</b><br />\n";
                }
-               if(count($roomtypes) > 0 ) {
-                  $types = "";
-                  foreach($roomtypes as $type) {
-                     if($camper->fiscalyearid == $type->fiscalyearid)
-                        $types .= "$type->name<br />\n";
-                  }
-                  if($types != "") {
-                     $tooltip .= "<u>Desired Room Types</u><br />\n" . $types;
-                  }
-               }
                if(count($roommates) > 0 ) {
                   $mates = "";
                   foreach($roommates as $mate) {
-                     if($camper->fiscalyearid == $mate->fiscalyearid)
+                     if($camper->yearattendingid == $mate->yearattendingid)
                         $mates .= "$mate->name<br />\n";
                   }
                   if($mates != "") {
@@ -72,8 +60,8 @@ class muusla_toolsViewassignroom extends JView
                if(count($prevrooms) > 0 ) {
                   $prooms = "";
                   foreach($prevrooms as $room) {
-                     if($camper->camperid == $room->camperid)
-                        $prooms .= "$room->fiscalyear: $room->name $room->roomnbr<br />\n";
+                     if($camper->id == $room->camperid)
+                        $prooms .= "$room->year: $room->name $room->roomnbr<br />\n";
                   }
                   if($prooms != "") {
                      $tooltip .= "<u>Previous Rooms</u><br />\n" . $prooms;

@@ -25,12 +25,12 @@
             } else {
                $style = " style='background-color:IndianRed'";
             }
-            if(count($campers) > 0 && $roomid == $room->roomid) {
+            if(count($campers) > 0 && $roomid == $room->id) {
                $selected = " selected='selected'";
             } else {
                $selected = "";
             }
-            echo "                     <option value='$room->roomid'$style$selected>$room->roomnbr ($room->current / $room->capacity) $ishandicap</option>\n";
+            echo "                     <option value='$room->id'$style$selected>$room->roomnbr ($room->current / $room->capacity) $ishandicap</option>\n";
          }
          echo "                  </optgroup>\n";
       }?>
@@ -39,7 +39,7 @@
       <?php 
       if(count($campers) > 0) {
          foreach($campers as $camper) {
-            echo "                  <li value='$camper->fiscalyearid' title='$camper->tooltip' class='muusatip ui-state-default'>($camper->sexcd) $camper->firstname $camper->lastname ($camper->programname)</li>\n";
+            echo "                  <li value='$camper->yearattendingid' title='$camper->tooltip' class='muusatip ui-state-default'>($camper->sexcd) $camper->firstname $camper->lastname ($camper->programname)</li>\n";
          }
       }?>
    </ul>

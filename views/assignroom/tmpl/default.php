@@ -2,19 +2,10 @@
 <link type="text/css"
    href="<?php echo JURI::root(true);?>/components/com_muusla_application/css/application.css"
    rel="stylesheet" />
-<link type="text/css"
-   href="<?php echo JURI::root(true);?>/components/com_muusla_application/css/jquery-ui-1.10.0.custom.min.css"
-   rel="stylesheet" />
-<script
-   src="<?php echo JURI::root(true);?>/components/com_muusla_application/js/jquery-1.9.1.min.js"></script>
-<script
-   src="<?php echo JURI::root(true);?>/components/com_muusla_application/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script
    src="<?php echo JURI::root(true);?>/components/com_muusla_tools/js/assignroom.js"></script>
 <div id="ja-content">
-   <form
-      action="http://<? echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];?>"
-      method="post">
+   <form method="post">
       <?php if($this->editcamper) {
          echo "<input type='hidden' name='editcamper' value='$this->editcamper' />\n";
          //echo "<div style='float: right;'><button id='forwardRoom'>Do not Save<br />Proceed to Room Selection</button></div>\n";
@@ -34,7 +25,7 @@
                      <?php 
                      if(count($this->campers[0]) > 0) {
                         foreach($this->campers[0] as $camper) {
-                           echo "                  <li value='$camper->fiscalyearid' ";
+                           echo "                  <li value='$camper->yearattendingid' ";
                            if($camper->tooltip != "") {
                               echo "title='$camper->tooltip' ";
                            }

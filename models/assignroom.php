@@ -21,35 +21,28 @@ class muusla_toolsModelassignroom extends JModel
 {
    function getCampers($familyid) {
       $db =& JFactory::getDBO();
-      $query = "SELECT fiscalyearid, camperid, sexcd, firstname, lastname, programname, roomid, (SELECT COUNT(*) FROM muusa_charges_v WHERE familyid=$familyid AND chargetypeid IN (1001,1016)) prereg FROM muusa_campers_v WHERE familyid=$familyid ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
+      $query = "SELECT tc.yearattendingid, tc.id, tc.sexcd, tc.firstname, tc.lastname, tc.programname, tc.roomid, muusa_isprereg(tc.id, (SELECT year FROM muusa_year WHERE is_current=1)) prereg FROM muusa_thisyear_camper tc WHERE familyid=$familyid ORDER BY STR_TO_DATE(tc.birthdate, '%m/%d/%Y')";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
-   
-   function getRoomtypes($fiscalids) {
+
+   function getRoommates($yearattendingids) {
       $db =& JFactory::getDBO();
-      $query = "SELECT mrp.fiscalyearid, mb.name name FROM muusa_roomtype_preferences mrp, muusa_buildings mb WHERE mrp.buildingid=mb.buildingid AND mrp.fiscalyearid IN ($fiscalids) ORDER BY mrp.choicenbr";
+      $query = "SELECT yearattendingid, name FROM muusa_roommatepreference WHERE yearattendingid IN ($yearattendingids) ORDER BY choicenbr";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
-   
-   function getRoommates($fiscalids) {
-      $db =& JFactory::getDBO();
-      $query = "SELECT fiscalyearid, name FROM muusa_roommate_preferences WHERE fiscalyearid IN ($fiscalids) ORDER BY choicenbr";
-      $db->setQuery($query);
-      return $db->loadObjectList();
-   }
-   
+
    function getPreviousRooms($camperids) {
       $db =& JFactory::getDBO();
-      $query = "SELECT mf.camperid, mf.fiscalyear, mb.name name, mr.roomnbr FROM muusa_fiscalyear mf, muusa_rooms mr, muusa_buildings mb, muusa_currentyear my WHERE mf.roomid=mr.roomid AND mr.buildingid=mb.buildingid AND mf.fiscalyear!=my.year AND mf.roomid!=0 AND mf.camperid IN ($camperids) ORDER BY mf.fiscalyear DESC";
+      $query = "SELECT ya.camperid, ya.year, b.name, r.roomnbr FROM muusa_yearattending ya, muusa_room r, muusa_building b, muusa_year y WHERE ya.roomid=r.id AND r.buildingid=b.id AND ya.year!=y.year AND y.is_current AND ya.roomid!=0 AND ya.camperid IN ($camperids) ORDER BY ya.year DESC";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
 
    function getRooms() {
       $db =& JFactory::getDBO();
-      $query = "SELECT mr.roomid roomid, mb.buildingid buildingid, mb.name buildingname, mr.roomnbr roomnbr, mr.capacity capacity, mr.is_handicap is_handicap, (SELECT COUNT(*) FROM muusa_fiscalyear mf, muusa_currentyear my WHERE mf.roomid=mr.roomid AND mf.fiscalyear=my.year) current FROM muusa_buildings mb LEFT OUTER JOIN muusa_rooms mr ON mr.buildingid=mb.buildingid WHERE mr.is_workshop=0 ORDER BY mb.buildingid, mr.roomnbr";
+      $query = "SELECT r.id, b.id buildingid, b.name buildingname, r.roomnbr, r.capacity, r.is_handicap, (SELECT COUNT(*) FROM muusa_yearattending ya, muusa_year y WHERE ya.roomid=r.id AND ya.year=y.year AND y.is_current=1) current FROM muusa_building b LEFT OUTER JOIN muusa_room r ON r.buildingid=b.id WHERE r.is_workshop=0 ORDER BY b.id, r.roomnbr";
       $db->setQuery($query);
       $results = $db->loadObjectList();
       $buildings = array();
@@ -57,14 +50,14 @@ class muusla_toolsModelassignroom extends JModel
       foreach($results as $result) {
          if($counter == -1 || $buildings[$counter]->buildingid != $result->buildingid) {
             $building = new stdClass;
-            $building->buildingid = $result->buildingid;
-            $building->buildingname = $result->buildingname;
+            $building->id = $result->buildingid;
+            $building->name = $result->buildingname;
             $building->rooms = array();
             $buildings[++$counter] = $building;
          }
-         if($result->roomid) {
+         if($result->id) {
             $room = new stdClass;
-            $room->roomid = $result->roomid;
+            $room->id = $result->id;
             $room->roomnbr = $result->roomnbr;
             $room->current = $result->current;
             $room->capacity = $result->capacity;
@@ -77,6 +70,6 @@ class muusla_toolsModelassignroom extends JModel
 
    function assignRoom($obj) {
       $db =& JFactory::getDBO();
-      $db->updateObject("muusa_fiscalyear", $obj, "fiscalyearid");
+      $db->updateObject("muusa_yearattending", $obj, "id");
    }
 }
