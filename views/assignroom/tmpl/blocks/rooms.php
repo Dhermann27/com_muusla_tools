@@ -13,7 +13,7 @@
       <option value="0">No Room Assigned</option>
       <?php 
       foreach ($this->buildings as $building) {
-         echo "                  <optgroup label='$building->buildingname'>\n";
+         echo "                  <optgroup label='$building->name'>\n";
          foreach($building->rooms as $room) {
             if($room->is_handicap == "1") {
                $ishandicap = " (Handicapped)";

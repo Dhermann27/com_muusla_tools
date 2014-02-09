@@ -48,7 +48,7 @@ class muusla_toolsModelassignroom extends JModel
       $buildings = array();
       $counter = -1;
       foreach($results as $result) {
-         if($counter == -1 || $buildings[$counter]->buildingid != $result->buildingid) {
+         if($counter == -1 || $buildings[$counter]->id != $result->buildingid) {
             $building = new stdClass;
             $building->id = $result->buildingid;
             $building->name = $result->buildingname;
