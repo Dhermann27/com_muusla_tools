@@ -15,17 +15,6 @@ jQuery(document)
 						submit();
 						return false;
 					});
-					$("#backDetails")
-							.button({
-								icons : {
-									primary : "ui-icon-triangle-1-w"
-								}
-							})
-							.click(
-									function() {
-										window.location.href = "http://muusa.org/index.php/admin/database/campers";
-										return false;
-									});
 				});
 
 function submit() {

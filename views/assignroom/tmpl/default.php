@@ -7,9 +7,9 @@
 <div id="ja-content">
    <form method="post">
       <?php if($this->editcamper) {
-         echo "<input type='hidden' name='editcamper' value='$this->editcamper' />\n";
-         //echo "<div style='float: right;'><button id='forwardRoom'>Do not Save<br />Proceed to Room Selection</button></div>\n";
-         echo "<div><button id='backDetails'>Return<br />to Camper Details</button></div>\n";
+         echo "<input type='hidden' id='editcamper' name='editcamper' value='$this->editcamper' />\n";
+         echo "<div style='float: right;'><button id='toRegister'>Do not Save<br />Proceed to Registration Form</button></div>\n";
+         echo "<div><button id='toSelection'>Return<br />to Camper Selection</button></div>\n";
       }?>
       <div id="muusaApp">
          <div class="componentheading">
