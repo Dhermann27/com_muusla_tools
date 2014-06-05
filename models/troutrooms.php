@@ -21,7 +21,7 @@ class muusla_toolsModeltroutrooms extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = " SELECT mb.name Building, mr.roomnbr Room_Number, CONCAT(mc.firstname, ' ', mc.lastname) Name, mc.sexcd, CONCAT(mfv.address1, ', ', IF(mfv.address2<>'',CONCAT(mfv.address2, ', '),''), mfv.city, ', ', mfv.statecd, ' ', mfv.zipcd) Address, mc.age Age FROM muusa_campers_v mc, muusa_family_v mfv, muusa_buildings mb, muusa_rooms mr WHERE mc.familyid=mfv.familyid AND mc.roomid=mr.roomid AND mr.buildingid=mb.buildingid ORDER BY mb.buildingid, mr.roomnbr, STR_TO_DATE(mc.birthdate, '%m/%d/%Y')";
+		$query = "SELECT b.name Building, r.roomnbr Room_Number, CONCAT(tc.firstname, ' ', tc.lastname) Name, tc.sexcd, CONCAT(tf.address1, ', ', IF(tf.address2<>'',CONCAT(tf.address2, ', '),''), tf.city, ', ', tf.statecd, ' ', tf.zipcd) Address, tc.age Age FROM muusa_thisyear_camper tc, muusa_thisyear_family tf, muusa_building b, muusa_room r WHERE tc.familyid=tf.id AND tc.roomid=r.id AND r.buildingid=b.id ORDER BY b.id, r.roomnbr, tc.birthdate";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
