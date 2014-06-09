@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-        <layout title="Mailing Labels">
+        <layout title="Confirmation Letters">
                 <message>
-                        <![CDATA[COM_MUUSA_TOOLS_MAILINGLABELS_VIEW_DEFAULT_DESC]]>
+                        <![CDATA[COM_MUUSA_TOOLS_LETTERS_VIEW_DEFAULT_DESC]]>
                 </message>
         </layout>
 </metadata>

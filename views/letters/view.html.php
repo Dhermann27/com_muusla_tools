@@ -11,7 +11,7 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewmailinglabels extends JView
+class muusla_toolsViewletters extends JView
 {
    function display($tpl = null) {
       $model =& $this->getModel();
