@@ -1,9 +1,13 @@
 <?php defined('_JEXEC') or die('Restricted access'); 
-if(count($this->letters) > 0) { ?>
+if(count($this->letters) > 0) {
+   $burt = false;
+   $meyer = false;
+   $cratty = false;?>
 <html>
 <head>
 <style type="text/stylesheet">
-   html { width: 8.5in; }
+   html, body { bgcolor: white; font-family: 'DejaVu Sans'; font-size: 0.5em; padding: 1em; }
+   h1, h2, h3, h4, h5, h6 { font-family: 'DejaVu Sans Condensed'; }
 </style>
 </head>
 <body>
@@ -19,8 +23,8 @@ if(count($this->letters) > 0) { ?>
       </strong>
    </div>
    <p>&nbsp;</p>
-   <div>
-      <?php echo count($letter->children) > 1 ? "The $letter->name Family" : "$letter->children[0]->firstname $letter->children[0]->lastname";?>
+   <div style="margin-left: 1in;">
+      <?php echo count($letter->children) > 1 ? "The $letter->name Family" : $letter->children[0]->firstname . " " . $letter->children[0]->lastname;?>
       <br />
       <?php echo $letter->address1;?>
       <?php echo $letter->address2 != "" ? "<br />" . $letter->address2 : "";?>
@@ -41,14 +45,21 @@ if(count($this->letters) > 0) { ?>
       <tbody>
          <?php foreach($letter->children as $child) {?>
          <tr>
-            <td><?php echo $child->firstname;?></td>
-            <td><?php echo $child->lastname;?></td>
-            <td><?php echo $child->email;?></td>
-            <td><?php echo "$child->buildingname $child->roomnbr";?>
+            <td><?php echo $child->firstname;?>
             </td>
-            <td><?php echo $child->programname;?></td>
+            <td><?php echo $child->lastname;?>
+            </td>
+            <td><?php echo $child->email;?>
+            </td>
+            <td><?php echo $child->roomnbr ? "$child->buildingname $child->roomnbr" : "&nbsp;";?>
+            </td>
+            <td><?php echo $child->programname;?>
+            </td>
          </tr>
-         <?php }?>
+         <?php $burt = $burt || $child->programid == 1003;
+         $meyer = $meyer || $child->programid == 1001;
+         $cratty = $cratty || $child->programid == 1002 || $child->programid == 1007;
+   }?>
       </tbody>
    </table>
    <?php if(count($letter->roommates) > 0) {?>
@@ -75,7 +86,7 @@ if(count($this->letters) > 0) { ?>
          if(count($workshop["waitlist"]) > 0){
             foreach($workshop["waitlist"] as $attendee) {
                if($attendee->familyid == $letter->id) {
-                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n");//<td>" . $workshop["workshopname"] . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td><i>Waiting List</i></td>\n");
+                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n<td>" . $workshop["workshopname"] . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td><i>Waiting List</i></td>\n");
                }
             }
          }
@@ -98,6 +109,14 @@ if(count($this->letters) > 0) { ?>
             <?php echo implode("</tr>\n<tr>\n", $signups)?>
          </tr>
       </tbody>
+      <tfoot>
+         <tr>
+            <td colspan="6" align="center"><i>These workshop slots are
+                  not guaranteed. Priority is always given to those who
+                  have paid their registration fees earliest, not in
+                  order of the date that the signup occurred.</i></td>
+         </tr>
+      </tfoot>
    </table>
    <hr />
    <?php }
@@ -115,20 +134,24 @@ if(count($this->letters) > 0) { ?>
       </thead>
       <tbody>
          <?php foreach($letter->charges as $charge) {
-            $total += $charge->amount;?>
+            $total += (float)preg_replace("/,/", "",  $charge->amount);?>
          <tr>
-            <td><?php echo $charge->chargetypename;?></td>
+            <td><?php echo $charge->chargetypename;?>
+            </td>
             <td align="right">$<?php echo $charge->amount;?>
             </td>
-            <td align="center"><?php echo $charge->timestamp;?></td>
-            <td><?php echo $charge->memo;?></td>
+            <td align="center"><?php echo $charge->timestamp;?>
+            </td>
+            <td><?php echo $charge->memo;?>
+            </td>
          </tr>
          <?php }?>
       </tbody>
       <tfoot>
          <tr align="right">
-            <td><strong>Total Amount Due:</strong></td>
-            <td>$<?php echo number_format($total, 2);?>
+            <td><strong>Total Amount Due:</strong>
+            </td>
+            <td>$<?php echo number_format($total, 2, '.', '');?>
             </td>
          </tr>
          <tr align="center">
@@ -136,7 +159,8 @@ if(count($this->letters) > 0) { ?>
                   camp if at all possible: mail your check by June 15 or
                   pay by PayPal by June 22. After that you will need to
                   pay by credit card or check upon arrival; we cannot
-                  accept PayPal payments after June 25.</i></td>
+                  accept PayPal payments after June 25.</i>
+            </td>
          </tr>
       </tfoot>
    </table>
@@ -154,18 +178,52 @@ if(count($this->letters) > 0) { ?>
       <tbody>
          <?php foreach($letter->volunteers as $volunteer) {?>
          <tr>
-            <td><?php echo $volunteer->volunteerpositionname;?></td>
-            <td><?php echo $scholarship->firstname;?>
+            <td><?php echo $volunteer->volunteerpositionname;?>
             </td>
-            <td><?php echo $scholarship->lastname;?></td>
+            <td><?php echo $volunteer->firstname;?>
+            </td>
+            <td><?php echo $volunteer->lastname;?>
+            </td>
          </tr>
          <?php }?>
       </tbody>
    </table>
    <hr />
-   <?php }?>
+   <?php }
+   if($burt) {?>
    <div style='page-break-after: always; font-size: 1pt;'></div>
-   <?php }?>
+   <?php include 'letters/burtletter.php';
+   foreach($letter->children as $child) {
+      if($child->programid == 1003) {?>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php 
+   include 'letters/burtform.php';
+      }
+   }
+   }
+   if($meyer) {?>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php include 'letters/meyerletter.php';
+   foreach($letter->children as $child) {
+      if($child->programid == 1001) {?>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php 
+   include 'letters/meyerform.php';
+      }
+   }
+   }
+   if($cratty) {?>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php include 'letters/crattyletter.php'; 
+   foreach($letter->children as $child) {
+      if($child->programid == 1002 || $child->programid == 1007) {?>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php 
+   include 'letters/crattyform.php';
+      }
+   }
+   }
+   }?>
 </body>
 </html>
 <?php 
@@ -192,7 +250,7 @@ if(count($this->letters) > 0) { ?>
 	    camperlist = [ <?php
 	        $campers = array();
 	        foreach($this->campers as $camper) {
-	            array_push($campers, "{ label: '$camper->firstname $camper->lastname ($camper->city, $camper->statecd)', ident: '$camper->id'}\n");
+	            array_push($campers, "{ label: '$camper->firstname $camper->lastname ($camper->city, $camper->statecd)', ident: '$camper->familyid'}\n");
 	        }
 	        echo implode(",\n", $campers); ?>
 	    ];

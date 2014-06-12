@@ -55,7 +55,7 @@ class muusla_toolsModelletters extends JModel
       $db->setQuery($query);
       $families = $db->loadObjectList();
       foreach($families as $family) {
-         $query = "SELECT firstname, lastname, email, buildingname, roomnbr, programname FROM muusa_thisyear_camper WHERE familyid=$family->id";
+         $query = "SELECT firstname, lastname, email, buildingname, roomnbr, programid, programname, age, birthday, grade FROM muusa_thisyear_camper WHERE familyid=$family->id";
          $db->setQuery($query);
          $family->children = $db->loadObjectList();
 

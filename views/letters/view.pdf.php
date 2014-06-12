@@ -21,7 +21,7 @@ class muusla_toolsViewletters extends JView
       $user =& JFactory::getUser();
       $this->assignRef('year', $model->getYear());
       $letters = $this->getSafe(JRequest::getVar("letters"));
-      if($letters && (in_array("8", $user->groups) || in_array("10", $user->groups))) {
+      if($letters != "" && (in_array("8", $user->groups) || in_array("10", $user->groups))) {
          if($letters == "all") {
             $this->assignRef('letters', $model->getLetters(""));
          } else if($letters == "camper") {
