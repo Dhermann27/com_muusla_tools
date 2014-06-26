@@ -1,46 +1,56 @@
-<?php defined('_JEXEC') or die('Restricted access'); ?>
-<div id="ja-content">
-<div class="componentheading">Program List</div>
-<table class="blog" cellpadding="0" cellspacing="0">
-	<tr>
-		<td valign='top'>
-		<div>
-		<div class='contentpaneopen'>
-		<h2 class='contentheading'>Downloading Program List Data...</h2>
-		</div>
-		<div class='article-content'><i>Please wait a moment for the download
-		to begin.</i>
-		<p>After downloading the Roster Data file, click <a
-			href="http://www.muusa.org/index.php/component/docman/doc_download/37">here</a>
-		to download the Program List template.</p>
-		<h3>Using Microsoft Word 2007</h3>
-		<ol>
-			<li>Open programlist.docx.</li>
-			<li>Choose Mailings -> Select Recipients -> Use Existing List.</li>
-			<li>Find and pick programlistdata.csv.</li>
-			<li>Leave the default encoding choice and click OK.</li>
-			<li>Click Finish &amp; Merge -> Edit Individual Document.</li>
-			<li>Choose All and click OK.</li>
-		</ol>
-		<h3>Using Microsoft Word 2003</h3>
-		<ol>
-			<li>Click "Yes" to the error message.</li>
-			<li>Choose Tools -> Letters and Mailings -> Mail Merge.</li>
-			<li>Choose "Letters" and click "Next".</li>
-			<li>Choose "Use the current document" and click "Next".</li>
-			<li>Choose "Use an existing list", click "Browse", and find
-			programlistdata.csv.</li>
-			<li>Click "OK" to leave it as the default encoding, and "OK" again to
-			run all the records.</li>
-			<li>Click "Next" until you reach Step 6. Click "Edit individual
-			letters" to make any changes (choose "All" and click "OK), or "Print"
-			to print as they appear.</li>
-		</ol>
-		</div>
-		<span class='article_separator'>&nbsp;</span></div>
-		</td>
-	</tr>
-</table>
-<script type='text/javascript' language='JavaScript'>
-   setTimeout("location.href='index.php?option=com_muusla_tools&task=detail&view=programlist';", 3000);
-</script></div>
+<?php defined('_JEXEC') or die('Restricted access'); 
+if(count($this->programs) > 0) {?>
+<html>
+<head>
+<style type="text/stylesheet">
+   html, body { bgcolor: white; font-family: opensans; padding: 1em; }
+</style>
+</head>
+<body>
+   <?php
+   foreach($this->programs as $pid => $program) {
+      $rents = $pid != 1006 && $pid != 1005;?>
+   <h1>
+      <?php echo $program["name"];?>
+   </h1>
+   <table>
+      <thead>
+         <tr valign="bottom">
+            <td <?php echo $rents ? " rowspan='2'" : "";?>>Last Name</td>
+            <td <?php echo $rents ? " rowspan='2'" : "";?>>First Name</td>
+            <td <?php echo $rents ? " rowspan='2'" : "";?>>Age</td>
+            <?php if($rents) {?>
+            <td <?php echo $rents ? " rowspan='2'" : "";?>>Grade</td>
+            <td colspan="4" align="center">Parent, Guardian, or Sponsor</td>
+         </tr>
+         <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone Number</td>
+            <td>Room Number</td>
+            <?php }?>
+         </tr>
+      </thead>
+      <tbody>
+         <?php foreach($program["campers"] as $camper) {?>
+         <tr>
+            <td><?php echo $camper->lastname;?></td>
+            <td><?php echo $camper->firstname;?></td>
+            <td><?php echo $camper->age;?></td>
+            <?php if($rents) {?>
+            <td><?php echo $camper->grade?></td>
+            <td><?php echo $camper->pfullname;?></td>
+            <td><?php echo $camper->pemail;?></td>
+            <td nowrap="nowrap"><?php echo substr($camper->pphonenbr, 0, 3);?>-<?php echo substr($camper->pphonenbr, 3, 3);?>-<?php echo substr($camper->pphonenbr, 6);?>
+            </td>
+            <td><?php echo $camper->proomnbr;?></td>
+            <?php }?>
+         </tr>
+         <?php }?>
+      </tbody>
+   </table>
+   <div style='page-break-after: always; font-size: 1pt;'></div>
+   <?php }?>
+</body>
+</html>
+<?php }?>

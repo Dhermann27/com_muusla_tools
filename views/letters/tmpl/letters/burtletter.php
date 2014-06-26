@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>To the parents, guardians, and sponsors of senior high youth,</h5>
+<p>To the parents, guardians, and sponsors of senior high youth,</p>
 <p>Greetings! I hope you're as excited as we are about our upcoming week
    at Trout Lodge. In our program that we call &quot;Burt,&quot; we
    create a community where we love and support everyone no matter what,
@@ -86,7 +86,7 @@
    time. Please don't hesitate to call or e-mail for any reason. We are
    excited already imagining that first night at camp!</p>
 <p>Many thanks,</p>
-<p>
+<p align="right">
    Abe Marsh, Senior High Coordinator<br /> <a
       href="mailto:abemarsh@gmail.com">abemarsh@gmail.com</a><br />
    (864) 247-3049

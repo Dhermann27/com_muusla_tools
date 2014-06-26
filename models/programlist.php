@@ -19,17 +19,18 @@ jimport( 'joomla.application.component.model' );
  */
 class muusla_toolsModelprogramlist extends JModel
 {
-	function getCampers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, mc.programname, mc.age, mc.grade, CONCAT(mp.firstname , ' ', mp.lastname) fullname, mp.email, mr.phonenbr, mp.roomnbr room FROM muusa_campers_v mc LEFT JOIN muusa_campers_v mp ON mp.camperid=(SELECT mt.camperid FROM muusa_campers_v mt LEFT JOIN muusa_phonenumbers mr ON mt.camperid=mr.camperid AND mr.phonetypeid=1001 WHERE mc.familyid=mt.familyid AND mc.camperid!=mt.camperid AND mt.age>17 ORDER BY IF(mr.phonenbr IS NULL,1,0), STR_TO_DATE(mt.birthdate, '%m/%d/%Y') LIMIT 1) LEFT JOIN muusa_phonenumbers mr ON mp.camperid=mr.camperid AND mr.phonetypeid=1001 WHERE mc.programname!='Adult' ORDER BY mc.programname, mc.lastname, mc.firstname";
-		$db->setQuery($query);
-		return $db->loadAssocList("camperid");
-	}
+   function getPrograms() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT p.id, p.name FROM muusa_program p, muusa_year y WHERE p.name!='Adult' AND p.start_year<=y.year AND p.end_year>=y.year AND y.is_current=1 ORDER BY p.name";
+      $db->setQuery($query);
+      return $db->loadAssocList("id");
+   }
 
-	function getSponsors() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mv.camperid, CONCAT(mp.firstname, ' ', mp.lastname) fullname, (SELECT phonenbr FROM muusa_phonenumbers mcs WHERE mcs.phonetypeid=1001 AND mcs.camperid=mp.camperid) phonenbr, mp.email, mp.roomnbr room FROM (muusa_campers_v mv, muusa_campers_v mp) WHERE mv.sponsor IS NOT NULL AND mv.sponsor LIKE CONCAT('%', mp.lastname, '%') AND mv.sponsor LIKE CONCAT('%', mp.firstname, '%')";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getCampers() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT tc.firstname, tc.lastname, tc.programid, tc.programname, tc.age, tc.grade, CONCAT(tcp.firstname , ' ', tcp.lastname) pfullname, tcp.email pemail, (SELECT n.phonenbr FROM muusa_phonenumber n WHERE tcp.id=n.camperid AND n.phonetypeid=1001 LIMIT 1) pphonenbr, tcp.roomnbr proomnbr FROM muusa_thisyear_camper tc LEFT JOIN muusa_thisyear_camper tcp ON tcp.id=(SELECT tcq.id FROM muusa_thisyear_camper tcq LEFT JOIN muusa_phonenumber n ON tcq.id=n.camperid AND n.phonetypeid=1001 WHERE tc.familyid=tcq.familyid AND tc.id!=tcq.id AND tcq.age>17 ORDER BY IF(n.phonenbr IS NULL,1,0), tcq.birthdate LIMIT 1) WHERE (tc.sponsor='' OR tc.sponsor IS NULL) AND tc.programname!='Adult'  UNION ALL SELECT tc.firstname, tc.lastname, tc.programid, tc.programname, tc.age, tc.grade, CONCAT(tcp.firstname , ' ', tcp.lastname) pfullname, tcp.email pemail, (SELECT n.phonenbr FROM muusa_phonenumber n WHERE tcp.id=n.camperid AND n.phonetypeid=1001 LIMIT 1) pphonenbr, tcp.roomnbr proomnbr FROM muusa_thisyear_camper tc LEFT JOIN muusa_thisyear_camper tcp ON tcp.id=(SELECT tcq.id FROM muusa_thisyear_camper tcq LEFT JOIN muusa_phonenumber n ON tcq.id=n.camperid AND n.phonetypeid=1001 WHERE tc.sponsor LIKE CONCAT('%', tcq.firstname, '%') AND tc.sponsor LIKE CONCAT('%', tcq.lastname, '%') LIMIT 1) WHERE tc.sponsor!='' AND tc.programname!='Adult' ORDER BY lastname, firstname";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
+
 }

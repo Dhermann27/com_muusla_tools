@@ -22,11 +22,11 @@
    children, what our program guidelines include and how to reach us. We
    encourage you to call us if you have any questions and look forward
    to seeing you at Trout Lodge!</p>
-<p>
-   Please sign and bring to camp a medical release form and program
+<p>Please sign and bring to camp a medical release form and program
    policies for each child. Special needs can be arranged by contacting
-   us directly:<br /> Tabitha Rasmussen, <a
-      href="mailto:theviolinmommy@aol.com">theviolinmommy@aol.com</a>,
+   us directly.</p>
+<p align="right">
+   Tabitha Rasmussen, <a href="mailto:theviolinmommy@aol.com">theviolinmommy@aol.com</a>,
    319-530-8833<br /> Kathryn Lukow, <a href="kathryn.lukow@tusd1.org">kathryn.lukow@tusd1.org</a>,
    520-240-2088
 </p>
@@ -39,9 +39,9 @@
    <li>Nursery: our youngest campers will be cared for in a safe, quiet
       place with cribs for napping, clean diaper changing tables, and
       adults with caring hearts to play games and read stories. <strong>For
-         infants in our nursery</strong> please bring a complete
-      diaper bag stocked with supplies and labeled with your child's
-      name<br /> <br />
+         infants in our nursery</strong> please bring a complete diaper
+      bag stocked with supplies and labeled with your child's name<br />
+      <br />
    </li>
    <li>Preschool: Our 4 through 6 year-olds will enjoy a variety of
       crafts, stories and games. In addition, our experienced staff will
@@ -75,7 +75,7 @@
    <li>Beach footwear (sandals, flip-flops, etc)</li>
    <li>Backpack or bag</li>
    <li>Clothes that can get very dirty and tightly fitting athletic
-      shoes for mud cave (5th)</li>
+      shoes for mud cave (5th &amp; 6th only)</li>
    <li>Any special medications or prescribed medical devices such as
       inhalers or epi-pens. Please be sure to meet in person with one of
       the program leads to discuss such items.</li>

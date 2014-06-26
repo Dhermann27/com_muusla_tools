@@ -14,9 +14,19 @@ jimport( 'joomla.application.component.view');
 class muusla_toolsViewnametags extends JView
 {
    function display($tpl = null) {
+      $document = JFactory::getDocument();
+      $document->setName('MUUSA Nametags');
+
       $model =& $this->getModel();
-      $this->assignRef('campers', $model->getCampers());
-      $this->assignRef('year', $model->getYear());
+      $labels = $this->getSafe(JRequest::getVar("labels"));
+      if($labels == "all") {
+         $this->assignRef('labels', $model->getAllAddresses());
+      } else if($labels == "camper") {
+         $this->assignRef('labels', $model->getCamperAddress($this->getSafe(JRequest::getVar("camperid"))));
+      } else {
+         echo "No Labels to Print!";
+      }
+
       parent::display($tpl);
    }
 
@@ -24,5 +34,6 @@ class muusla_toolsViewnametags extends JView
    {
       return htmlspecialchars(trim($obj), ENT_QUOTES);
    }
+
 }
 ?>

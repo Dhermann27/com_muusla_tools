@@ -1,11 +1,10 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>Burt Rules</h5>
+<h5>2014 Burt Rules</h5>
 <p>
    <i>Please bring a completed form for each Burt camper.</i>
 </p>
 <p>
-   I,
-   <?php echo "$child->firstname $child->lastname";?>
+   I, <strong><?php echo "$child->firstname $child->lastname";?> </strong>
    , agree to abide by the laws of the United States, of Missouri, of
    Washington County, of the City of Potosi, and by the rules of Trout
    Lodge, of MUUSA and of the Senior High program.
@@ -62,9 +61,8 @@
 <h5>Medical Consent and Information</h5>
 <p>
    TO WHOM IT MAY CONCERN: I, ________________________________, make
-   oath and say that I am the lawful guardian of
-   <?php echo "$child->firstname $child->lastname"?>
-   , born
+   oath and say that I am the lawful guardian of <strong><?php echo "$child->firstname $child->lastname"?>
+   </strong> , born
    <?php echo $child->birthday?>
    . MUUSA's camp staff and, if applicable, the youth's adult sponsor*
    have my consent, in a case of medical need, to bring my youth to a

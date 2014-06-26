@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>Children's Program Policies</h5>
+<h5>2014 Children's Program Policies</h5>
 <p>Parents: Please take a moment to review the following policies with
    children who will be participating in the MUUSA Children's Program.
    If able, the child should sign the contract at the bottom.</p>
@@ -22,22 +22,20 @@
       returned to their parent/guardian.</li>
 </ul>
 <p>
-   Signature of
-   <?php echo "$child->firstname $child->lastname";?>
-   : ___________________________________________<br /> Parent's
-   Signature: ___________________________________________<br />Parent's
+   Signature of <strong><?php echo "$child->firstname $child->lastname";?>
+   </strong> : ___________________________________________<br />
+   Parent's Signature: ___________________________________________<br />Parent's
    Printed Name: _______________________________________<br />Date
    _____________________________________________________
 </p>
 <div
    style='page-break-after: always; font-size: 1pt;'></div>
-<h5>Midwest Unitarian Universalist Summer Assembly 2014 Junior High
-   Medical Permission Form</h5>
+<h5>2014 Nursery/Grade School Medical Permission Form</h5>
 <p>
    In the event of any serious illness or accident, I give the Camp
    Staff or the Camper's Sponsor* permission to seek emergency medical
-   treatment for
-   <?php echo "$child->firstname $child->lastname";?>
+   treatment for <strong><?php echo "$child->firstname $child->lastname";?>
+   </strong>
 </p>
 <p>Signed: ________________________________</p>
 <p>

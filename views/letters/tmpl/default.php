@@ -6,19 +6,21 @@ if(count($this->letters) > 0) {
 <html>
 <head>
 <style type="text/stylesheet">
-   html, body { bgcolor: white; font-family: 'DejaVu Sans'; font-size: 0.5em; padding: 1em; }
-   h1, h2, h3, h4, h5, h6 { font-family: 'DejaVu Sans Condensed'; }
+   html, body { bgcolor: white; font-family: opensans; padding: 1em; }
+   h1, h2, h3, h4, h5, h6, caption { font-family: griffy; }
+   div, p, li, td { color: black; font-size: 10pt; line-height: 1; }
+   hr { padding-top: 1em; }
 </style>
 </head>
 <body>
    <?php
    foreach($this->letters as $letter) {?>
    <div align="center">
-      <h4>
-         MUUSA
+      <img src="/images/muusa/muusa_logo_maiandra.png" alt="MUUSA Logo" />
+      <h3>
          <?php echo $this->year;?>
          Confirmation Letter
-      </h4>
+      </h3>
       <strong> As of <?php echo date("l, F j, Y");?>
       </strong>
    </div>
@@ -65,8 +67,6 @@ if(count($this->letters) > 0) {
    <?php if(count($letter->roommates) > 0) {?>
    <h5>Roommates</h5>
    <div>
-      <i>Any camper in any one of your family's rooms that are not
-         listed on your registration</i>
       <?php foreach($letter->roommates as $roommate) {
          echo "$roommate->fullname ($roommate->buildingname $roommate->roomnbr)<br />\n";
       }?>
@@ -79,14 +79,14 @@ if(count($this->letters) > 0) {
          if(count($workshop["attendees"]) > 0){
             foreach($workshop["attendees"] as $attendee) {
                if($attendee->familyid == $letter->id) {
-                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n<td>" . $workshop["workshopname"] . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td>Enrolled</td>\n");
+                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n<td>" . htmlspecialchars($workshop["workshopname"]) . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td>Enrolled</td>\n");
                }
             }
          }
          if(count($workshop["waitlist"]) > 0){
             foreach($workshop["waitlist"] as $attendee) {
                if($attendee->familyid == $letter->id) {
-                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n<td>" . $workshop["workshopname"] . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td><i>Waiting List</i></td>\n");
+                  array_push($signups, "<td>$attendee->firstname</td>\n<td>$attendee->lastname</td>\n<td>" . htmlspecialchars($workshop["workshopname"]) . "</td>\n<td>" . $workshop["timename"] . "</td>\n<td>" . $workshop["dispdays"] . "</td>\n<td><i>Waiting List</i></td>\n");
                }
             }
          }
@@ -105,9 +105,11 @@ if(count($this->letters) > 0) {
          </tr>
       </thead>
       <tbody>
+         <?php foreach($signups as $signup) {?>
          <tr>
-            <?php echo implode("</tr>\n<tr>\n", $signups)?>
+            <?php echo $signup;?>
          </tr>
+         <?php }?>
       </tbody>
       <tfoot>
          <tr>

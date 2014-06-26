@@ -1,9 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>Midwest Unitarian Universalist Summer Assembly 2014 Junior High
-   Contract/Covenant</h5>
+<h5>2014 Junior High Contract/Covenant</h5>
 <p>
-   I,
-   <?php echo "$child->firstname $child->lastname";?>
+   I, <strong><?php echo "$child->firstname $child->lastname";?> </strong>
    , agree to abide by the laws of the State of Missouri, all local laws
    and ordinances, and the rules of MUUSA, and Trout Lodge.
 </p>
@@ -65,8 +63,8 @@
 <p>
    In the event of any serious illness or accident, I give the Camp
    Staff or the Camper's Sponsor* permission to seek emergency medical
-   treatment for
-   <?php echo "$child->firstname $child->lastname";?>
+   treatment for <strong><?php echo "$child->firstname $child->lastname";?>
+   </strong>
 </p>
 <p>Signed: ________________________________</p>
 <p>
