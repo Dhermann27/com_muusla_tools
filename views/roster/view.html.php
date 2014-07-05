@@ -56,7 +56,7 @@ class muusla_toolsViewroster extends JView
       echo "\n";
 
       foreach ($campers as $camperid=>$camper) {
-         echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper["familyname"])) . ",";
+         echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper["name"])) . ",";
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper["address1"])) . ",";
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper["address2"])) . ",";
          echo preg_replace("/&#039;/", "'", preg_replace("/,/", "", $camper["city"])) . ",";

@@ -21,21 +21,21 @@ class muusla_toolsModelroster extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT familyid, familyname, address1,  address2, city, statecd, zipcd FROM muusa_campers_v ORDER BY familyname, statecd, city";
+		$query = "SELECT id, name, address1,  address2, city, statecd, zipcd FROM muusa_thisyear_family ORDER BY name, statecd, city";
 		$db->setQuery($query);
-		return $db->loadAssocList("familyid");
+		return $db->loadAssocList("id");
 	}
 
 	function getChildren() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT familyid, camperid, 0 phones, firstname, lastname, email, LEFT(birthdate, 5) birthdate FROM muusa_campers_v ORDER BY STR_TO_DATE(birthdate, '%m/%d/%Y')";
+		$query = "SELECT familyid, id, 0 phones, firstname, lastname, email, LEFT(birthday, 5) birthdate FROM muusa_thisyear_camper ORDER BY birthdate";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
 
 	function getPhones() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mp.name, mn.phonenbr FROM (muusa_campers_v mc, muusa_phonenumbers mn, muusa_phonetypes mp) WHERE mc.camperid=mn.camperid AND mn.phonetypeid=mp.phonetypeid GROUP BY mc.familyid, mn.phonenbr ORDER BY mc.camperid";
+		$query = "SELECT tc.id, nt.name, n.phonenbr FROM (muusa_thisyear_camper tc, muusa_phonenumber n, muusa_phonetype nt) WHERE tc.id=n.camperid AND n.phonetypeid=nt.id GROUP BY tc.familyid, n.phonenbr ORDER BY tc.id";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}

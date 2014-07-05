@@ -21,7 +21,7 @@ class muusla_toolsModelrosterindex extends JModel
 {
 	function getCampers() {
 		$db =& JFactory::getDBO();
-		$query = "SELECT lastname, firstname, familyname FROM muusa_campers_v WHERE familyname NOT LIKE CONCAT(lastname, '%') ORDER BY lastname, firstname";
+		$query = "SELECT lastname, firstname, familyname FROM muusa_thisyear_camper WHERE familyname NOT LIKE CONCAT(lastname, '%') ORDER BY lastname, firstname";
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}

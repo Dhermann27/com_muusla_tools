@@ -19,10 +19,10 @@ jimport( 'joomla.application.component.model' );
  */
 class muusla_toolsModelrosterrequest extends JModel
 {
-	function getYears($email) {
-		$db =& JFactory::getDBO();
-		$query = "SELECT ya.year FROM muusa_camper c, muusa_yearattending ya WHERE c.id=ya.camperid AND c.email='$email' ORDER BY ya.year DESC";
-		$db->setQuery($query);
-		return $db->loadResultArray();
-	}
+   function getYears($email) {
+      $db =& JFactory::getDBO();
+      $query = "SELECT y.year, y.roster_docnum, ya.id FROM muusa_year y LEFT JOIN (muusa_camper c, muusa_yearattending ya) ON y.year=ya.year AND c.id=ya.camperid AND c.email='$email' WHERE y.year>2008 ORDER BY y.year DESC";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
 }
