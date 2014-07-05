@@ -11,11 +11,11 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewletters extends JView
+class muusla_toolsViewinvoices extends JView
 {
    function display($tpl = null) {
       $document = JFactory::getDocument();
-      $document->setName('MUUSA Confirmation Letter');
+      $document->setName('MUUSA Invoices');
 
       $model =& $this->getModel();
       $user =& JFactory::getUser();

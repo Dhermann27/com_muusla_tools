@@ -19,63 +19,65 @@ jimport( 'joomla.application.component.model' );
  */
 class muusla_toolsModelinvoices extends JModel
 {
-	function getAllCampers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid, mc.firstname, mc.lastname, mc.city, mc.statecd FROM muusa_campers_v mc WHERE mc.hohid=0 ORDER BY lastname, firstname, statecd, city";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   // Imported from All Workshops Report
+   function getWorkshops() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT w.id, CONCAT(w.su, w.m, w.t, w.w, w.th, w.f, w.sa) days, CONCAT(IF(w.su,'S',''),IF(w.m,'M',''),IF(w.t,'Tu',''),IF(w.w,'W',''),IF(w.th,'Th',''),IF(w.f,'F',''),IF(w.sa,'S','')) dispdays, r.roomnbr roomname, t.id timeslotid, t.name timename, w.name workshopname, w.capacity, t.starttime FROM (muusa_workshop w, muusa_timeslot t) LEFT JOIN muusa_room r ON w.roomid=r.id WHERE w.timeslotid=t.id ORDER by t.starttime, w.name";
+      $db->setQuery($query);
+      return $db->loadAssocList("id");
+   }
 
-	function getCampers($camper) {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.camperid camperid, mc.firstname firstname, mc.lastname lastname, mf.address1 address1, mf.address2 address2, mc.city city, mc.statecd statecd, mf.zipcd zipcd, mf.email email, mb.name buildingname, mr.roomnbr roomnbr, DATE_FORMAT(mf.birthdate, '%m/%d/%Y') age, mh.name churchname FROM (muusa_campers_v mc, muusa_campers mf, muusa_buildings mb, muusa_rooms mr) LEFT JOIN muusa_churches mh ON mf.churchid=mh.churchid WHERE mc.camperid=mf.camperid AND mc.roomid=mr.roomid AND mr.buildingid=mb.buildingid AND mc.hohid=0";
-		if($camper && $camper > 0) {
-			$query .= " AND mc.camperid=$camper";
-		}
-		$query .= " ORDER BY mc.lastname, mc.firstname, mc.statecd, mc.city";
-		$db->setQuery($query);
-		return $db->loadAssocList("camperid");
-	}
+   function getAttendees() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT yw.workshopid, c.familyid, c.id, c.firstname, c.lastname, yw.choicenbr, yw.is_leader FROM muusa_yearattending__workshop yw, muusa_yearattending ya, muusa_camper c, muusa_year y WHERE yw.yearattendingid=ya.id AND ya.camperid=c.id AND ya.year=y.year AND y.is_current=1 ORDER BY yw.is_leader DESC, IFNULL(ya.paydate, NOW()), yw.choicenbr";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
+   // End Import
 
-	function getChildren() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mc.hohid hohid, mc.firstname firstname, mc.lastname lastname, mf.email email, mb.name buildingname, mr.roomnbr roomnbr, DATE_FORMAT(mf.birthdate, '%m/%d/%Y') age FROM muusa_campers_v mc, muusa_campers mf, muusa_buildings mb, muusa_rooms mr WHERE mc.camperid=mf.camperid AND mc.roomid=mr.roomid AND mr.buildingid=mb.buildingid AND mc.hohid!=0 ORDER BY mc.hohid, mc.birthdate";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getCampers() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT tc.familyid, tc.firstname, tc.lastname, tf.city, tf.statecd FROM muusa_thisyear_camper tc, muusa_thisyear_family tf WHERE tc.familyid=tf.id ORDER BY tf.name, tc.birthdate";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
 
-	function getCharges() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT mv.familyid familyid, mv.camperid camperid, FORMAT(mv.amount,2) amount, mv.chargetypeid chargetypeid, mt.name chargetypename, mv.memo memo FROM muusa_charges_v mv, muusa_chargetypes mt WHERE mv.chargetypeid=mt.chargetypeid ORDER BY mv.timestamp, mv.chargetypeid";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getCount() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT COUNT(*) FROM muusa_thisyear_family";
+      $db->setQuery($query);
+      return $db->loadResult();
+   }
 
-	function getCredits() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT camperid, hohid, name memo, registration_amount, housing_amount FROM muusa_credits_v";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getYear() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT year FROM muusa_year WHERE is_current=1";
+      $db->setQuery($query);
+      return $db->loadResult();
+   }
 
-	function getVolunteers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT camperid, hohid, CONCAT(firstname, ' ', lastname) fullname, name positionname FROM muusa_volunteers_v";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getLetters($where) {
+      $db =& JFactory::getDBO();
+      $query = "SELECT id, name, address1, address2, city, statecd, zipcd FROM muusa_thisyear_family $where";
+      $db->setQuery($query);
+      $families = $db->loadObjectList();
+      foreach($families as $family) {
+         $query = "SELECT firstname, lastname, email, buildingname, roomnbr, programid, programname, age, birthday, grade FROM muusa_thisyear_camper WHERE familyid=$family->id";
+         $db->setQuery($query);
+         $family->children = $db->loadObjectList();
 
-	function getWorkshops() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT me.eventid eventid, CONCAT(me.su, me.m, me.t, me.w, me.th, me.f, me.sa) days, me.capacity capacity, mt.starttime starttime FROM muusa_events me, muusa_buildings mb, muusa_rooms mr, muusa_times mt WHERE me.roomid=mr.roomid AND mr.buildingid=mb.buildingid AND me.timeid=mt.timeid ORDER by mt.starttime, me.name";
-		$db->setQuery($query);
-		return $db->loadAssocList("eventid");
-	}
+         $query = "SELECT CONCAT(tp.firstname, ' ', tp.lastname) fullname, tp.buildingname, tp.roomnbr FROM muusa_thisyear_camper tc, muusa_thisyear_camper tp WHERE tc.buildingid IN (1000,1001,1002,1003) AND tc.familyid=$family->id AND tp.familyid!=tc.familyid AND tc.roomid=tp.roomid AND tp.roomid!=0 GROUP BY fullname ORDER BY tc.roomid";
+         $db->setQuery($query);
+         $family->roommates = $db->loadObjectList();
 
-	function getAttendees() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT ma.eventid eventid, mc.camperid camperid, mc.hohid hohid, CONCAT(mc.firstname, ', ', mc.lastname) fullname, ma.choicenbr choicenbr, CONCAT(IF(me.su,'S',''),IF(me.m,'M',''),IF(me.t,'Tu',''),IF(me.w,'W',''),IF(me.th,'Th',''),IF(me.f,'F',''),IF(me.sa,'S','')) dispdays, DATE_FORMAT(starttime, '%l:%i %p') timename, me.name workshopname FROM muusa_attendees ma, muusa_campers mc, muusa_fiscalyear mf, muusa_events me, muusa_currentyear my, muusa_times mt WHERE ma.camperid=mc.camperid AND mc.camperid=mf.camperid AND ma.eventid=me.eventid AND mf.fiscalyear=my.year AND me.timeid=mt.timeid ORDER BY ma.is_leader DESC, mf.postmark, ma.choicenbr";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+         $query = "SELECT chargetypename, FORMAT(amount,2) amount, DATE_FORMAT(timestamp, '%m/%d/%Y') timestamp, memo FROM muusa_thisyear_charge WHERE familyid=$family->id";
+         $db->setQuery($query);
+         $family->charges = $db->loadObjectList();
+
+         $query = "SELECT firstname, lastname, volunteerpositionname FROM muusa_thisyear_volunteer WHERE familyid=$family->id";
+         $db->setQuery($query);
+         $family->volunteers = $db->loadObjectList();
+      }
+      return $families;
+   }
 }

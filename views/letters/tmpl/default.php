@@ -9,7 +9,6 @@ if(count($this->letters) > 0) {
    html, body { bgcolor: white; font-family: opensans; padding: 1em; }
    h1, h2, h3, h4, h5, h6, caption { font-family: griffy; }
    div, p, li, td { color: black; font-size: 10pt; line-height: 1; }
-   hr { padding-top: 1em; }
 </style>
 </head>
 <body>
@@ -237,6 +236,11 @@ if(count($this->letters) > 0) {
 <script type="text/javascript">
    jQuery(document).ready(function ($) {
 		$("#myLetters").on('change', function() {
+			if(this.value == "last") {
+				jQuery("div#lastX").show();
+			} else {
+				jQuery("div#lastX").hide();
+			}
 			if(this.value == "camper") {
 				bindEvents(jQuery, jQuery("div#camper").show());
 			} else {
@@ -279,8 +283,21 @@ if(count($this->letters) > 0) {
                            <?php echo $this->year;?>
                            Registered Households
                         </option>
+                        <option value="last">Family Breakpoints</option>
                         <option value="camper">Specific Household</option>
                      </select>
+                     <div id="lastX" style="display: none;">
+                        Family Number <select name="lastX"
+                           class="ui-corner-all">
+                           <?php for($i=0; $i<$this->mycount; $i+=10) {?>
+                           <option value="<?php echo $i;?>">
+                              <?php echo $i;?>
+                              --
+                              <?php echo min($i+9, $this->mycount);?>
+                           </option>
+                           <?php }?>
+                        </select>
+                     </div>
                      <div id="camper" style="display: none;">
                         Camper name <input type="text"
                            class="inputtext camperlist ui-corner-all" /><input

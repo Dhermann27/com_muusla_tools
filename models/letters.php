@@ -42,6 +42,13 @@ class muusla_toolsModelletters extends JModel
       return $db->loadObjectList();
    }
 
+   function getCount() {
+      $db =& JFactory::getDBO();
+      $query = "SELECT COUNT(*) FROM muusa_thisyear_family";
+      $db->setQuery($query);
+      return $db->loadResult();
+   }
+
    function getYear() {
       $db =& JFactory::getDBO();
       $query = "SELECT year FROM muusa_year WHERE is_current=1";
@@ -51,7 +58,7 @@ class muusla_toolsModelletters extends JModel
 
    function getLetters($where) {
       $db =& JFactory::getDBO();
-      $query = "SELECT id, name, address1, address2, city, statecd, zipcd FROM muusa_thisyear_family $where ORDER BY name, statecd, city";
+      $query = "SELECT id, name, address1, address2, city, statecd, zipcd FROM muusa_thisyear_family $where";
       $db->setQuery($query);
       $families = $db->loadObjectList();
       foreach($families as $family) {

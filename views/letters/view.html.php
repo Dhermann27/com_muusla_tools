@@ -16,6 +16,7 @@ class muusla_toolsViewletters extends JView
    function display($tpl = null) {
       $model =& $this->getModel();
       $this->assignRef('campers', $model->getCampers());
+      $this->assignRef('mycount', $model->getCount());
       $this->assignRef('year', $model->getYear());
       parent::display($tpl);
    }
