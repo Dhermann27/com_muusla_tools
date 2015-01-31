@@ -11,14 +11,14 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewletters extends JView
+class muusla_toolsViewletters extends JViewLegacy
 {
    function display($tpl = null) {
       $document = JFactory::getDocument();
       $document->setName('MUUSA Confirmation Letter');
 
-      $model =& $this->getModel();
-      $user =& JFactory::getUser();
+      $model = $this->getModel();
+      $user = JFactory::getUser();
       $this->assignRef('year', $model->getYear());
       $letters = $this->getSafe(JRequest::getVar("letters"));
       if($letters != "" && (in_array("8", $user->groups) || in_array("10", $user->groups))) {

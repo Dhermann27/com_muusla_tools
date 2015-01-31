@@ -11,11 +11,11 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewassignroom extends JView
+class muusla_toolsViewassignroom extends JViewLegacy
 {
    function display($tpl = null) {
-      $model =& $this->getModel();
-      $user =& JFactory::getUser();
+      $model = $this->getModel();
+      $user = JFactory::getUser();
       $editcamper = JRequest::getVar($this->getSafe("editcamper"));
       $admin = $editcamper && (in_array("8", $user->groups) || in_array("10", $user->groups));
       if($admin && preg_match('/^\d+$/', $editcamper)) {

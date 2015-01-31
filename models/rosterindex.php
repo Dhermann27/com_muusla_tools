@@ -17,12 +17,12 @@ jimport( 'joomla.application.component.model' );
  * @package    muusla_tools
  * @subpackage Components
  */
-class muusla_toolsModelrosterindex extends JModel
+class muusla_toolsModelrosterindex extends JModelItem
 {
-	function getCampers() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT lastname, firstname, familyname FROM muusa_thisyear_camper WHERE familyname NOT LIKE CONCAT(lastname, '%') ORDER BY lastname, firstname";
-		$db->setQuery($query);
-		return $db->loadObjectList();
-	}
+   function getCampers() {
+      $db = JFactory::getDBO();
+      $query = "SELECT lastname, firstname, familyname FROM muusa_thisyear_camper WHERE familyname NOT LIKE CONCAT(lastname, '%') ORDER BY lastname, firstname";
+      $db->setQuery($query);
+      return $db->loadObjectList();
+   }
 }

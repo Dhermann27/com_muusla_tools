@@ -11,10 +11,10 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewmailinglabels extends JView
+class muusla_toolsViewmailinglabels extends JViewLegacy
 {
    function display($tpl = null) {
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $this->assignRef('campers', $model->getCampers());
       $this->assignRef('year', $model->getYear());
       parent::display($tpl);

@@ -11,10 +11,10 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewinvoices extends JView
+class muusla_toolsViewinvoices extends JViewLegacy
 {
    function display($tpl = null) {
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $this->assignRef('campers', $model->getCampers());
       $this->assignRef('mycount', $model->getCount());
       $this->assignRef('year', $model->getYear());

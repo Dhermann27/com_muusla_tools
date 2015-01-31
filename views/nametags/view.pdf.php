@@ -11,13 +11,13 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewnametags extends JView
+class muusla_toolsViewnametags extends JViewLegacy
 {
    function display($tpl = null) {
       $document = JFactory::getDocument();
       $document->setName('MUUSA Nametags');
 
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $labels = $this->getSafe(JRequest::getVar("labels"));
       if($labels == "all") {
          $this->assignRef('labels', $model->getAllAddresses());

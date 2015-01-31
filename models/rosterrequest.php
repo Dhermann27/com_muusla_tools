@@ -17,10 +17,10 @@ jimport( 'joomla.application.component.model' );
  * @package    muusla_tools
  * @subpackage Components
  */
-class muusla_toolsModelrosterrequest extends JModel
+class muusla_toolsModelrosterrequest extends JModelItem
 {
    function getYears($email) {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $query = "SELECT y.year, y.roster_docnum, ya.id FROM muusa_year y LEFT JOIN (muusa_camper c, muusa_yearattending ya) ON y.year=ya.year AND c.id=ya.camperid AND c.email='$email' WHERE y.year>2008 ORDER BY y.year DESC";
       $db->setQuery($query);
       return $db->loadObjectList();

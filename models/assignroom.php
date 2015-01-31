@@ -17,31 +17,31 @@ jimport( 'joomla.application.component.model' );
  * @package    muusla_tools
  * @subpackage Components
  */
-class muusla_toolsModelassignroom extends JModel
+class muusla_toolsModelassignroom extends JModelItem
 {
    function getCampers($familyid) {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $query = "SELECT tc.yearattendingid, tc.id, tc.sexcd, tc.firstname, tc.lastname, tc.programname, tc.roomid, muusa_isprereg(tc.id, (SELECT year FROM muusa_year WHERE is_current=1)) prereg FROM muusa_thisyear_camper tc WHERE familyid=$familyid ORDER BY STR_TO_DATE(tc.birthdate, '%m/%d/%Y')";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
 
    function getRoommates($yearattendingids) {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $query = "SELECT yearattendingid, name FROM muusa_roommatepreference WHERE yearattendingid IN ($yearattendingids) ORDER BY choicenbr";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
 
    function getPreviousRooms($camperids) {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $query = "SELECT ya.camperid, ya.year, b.name, r.roomnbr FROM muusa_yearattending ya, muusa_room r, muusa_building b, muusa_year y WHERE ya.roomid=r.id AND r.buildingid=b.id AND ya.year!=y.year AND y.is_current AND ya.roomid!=0 AND ya.camperid IN ($camperids) ORDER BY ya.year DESC";
       $db->setQuery($query);
       return $db->loadObjectList();
    }
 
    function getRooms() {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $query = "SELECT r.id, b.id buildingid, b.name buildingname, r.roomnbr, r.capacity, r.is_handicap, (SELECT COUNT(*) FROM muusa_yearattending ya, muusa_year y WHERE ya.roomid=r.id AND ya.year=y.year AND y.is_current=1) current FROM muusa_building b LEFT OUTER JOIN muusa_room r ON r.buildingid=b.id WHERE r.is_workshop=0 ORDER BY b.id, r.roomnbr";
       $db->setQuery($query);
       $results = $db->loadObjectList();
@@ -69,7 +69,7 @@ class muusla_toolsModelassignroom extends JModel
    }
 
    function assignRoom($obj) {
-      $db =& JFactory::getDBO();
+      $db = JFactory::getDBO();
       $db->updateObject("muusa_yearattending", $obj, "id");
    }
 }

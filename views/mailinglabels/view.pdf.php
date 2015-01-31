@@ -11,13 +11,13 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewmailinglabels extends JView
+class muusla_toolsViewmailinglabels extends JViewLegacy
 {
    function display($tpl = null) {
       $document = JFactory::getDocument();
       $document->setName('MUUSA Mailing Labels');
 
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $labels = $this->getSafe(JRequest::getVar("labels"));
       if($labels == "all") {
          $this->assignRef('labels', $model->getAllAddresses());

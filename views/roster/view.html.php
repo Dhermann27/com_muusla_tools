@@ -11,14 +11,14 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewroster extends JView
+class muusla_toolsViewroster extends JViewLegacy
 {
    function display($tpl = null) {
       parent::display($tpl);
    }
 
    function detail($tpl = null) {
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $campers = $model->getCampers();
       $phones = $model->getPhones();
       foreach($model->getChildren() as $child) {

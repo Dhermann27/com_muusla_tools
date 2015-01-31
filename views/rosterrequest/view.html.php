@@ -11,13 +11,13 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewrosterrequest extends JView
+class muusla_toolsViewrosterrequest extends JViewLegacy
 {
-	function display($tpl = null) {
-		$model =& $this->getModel();
-		$user =& JFactory::getUser();
-		$this->assign('years', $model->getYears($user->email));
-		parent::display($tpl);
-	}
+   function display($tpl = null) {
+      $model = $this->getModel();
+      $user = JFactory::getUser();
+      $this->assign('years', $model->getYears($user->email));
+      parent::display($tpl);
+   }
 }
 ?>

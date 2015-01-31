@@ -11,14 +11,14 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewrosterindex extends JView
+class muusla_toolsViewrosterindex extends JViewLegacy
 {
    function display($tpl = null) {
       parent::display($tpl);
    }
 
    function detail($tpl = null) {
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $campers = $model->getCampers();
 
       header("Pragma: public");

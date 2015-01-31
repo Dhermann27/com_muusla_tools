@@ -11,14 +11,14 @@ jimport( 'joomla.application.component.view');
  *
  * @package		muusla_tools
  */
-class muusla_toolsViewprogramlist extends JView
+class muusla_toolsViewprogramlist extends JViewLegacy
 {
    function display($tpl = null) {
       $document = JFactory::getDocument();
       $document->setName('MUUSA Program List');
       $document->setProperties(array("orientation"=>"landscape"));
 
-      $model =& $this->getModel();
+      $model = $this->getModel();
       $programs = $model->getPrograms();
       $campers = $model->getCampers();
       foreach($campers as $camper) {
