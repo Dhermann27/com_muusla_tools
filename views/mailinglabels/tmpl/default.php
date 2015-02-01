@@ -57,7 +57,7 @@ if(count($this->labels) > 0) { ?>
 			}
 			
 		});
-	    $("#muusaApp .save").button().click(function (event) {
+	    $("#muusaApp .save").click(function (event) {
 	    	$("#muusaApp").submit();
 	        event.preventDefault();
 	        return false;

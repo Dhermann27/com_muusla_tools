@@ -2,7 +2,7 @@
 <p>Hello Meyerites, Parents, Guardians, and Sponsors!</p>
 <p>Welcome, new campers, and welcome back returning Meyerites! We are
    looking forward to another amazing week of MUUSA with all of you.</p>
-<p>In 2014, we will be working with the senior high program on a service
+<p>In 2015, we will be working with the senior high program on a service
    project for our generous hosts at Trout Lodge. We're changing up our
    activities for this year, so campers can look forward to pirate
    pontoons and mudcaving! Additionally, we will be working on a project
@@ -34,7 +34,7 @@
    friendships to nourish and grow over their lifetime.</p>
 <p>So, Meyerites, air out those swimsuits, dust off those summer
    clothes, and prepare for, most definitely, the best Meyer program
-   EVER! Who Rules 2014?! Meyer Rules 2014!</p>
+   EVER! Who Rules 2015?! Meyer Rules 2015!</p>
 <p align="right">
    Much love, Your Junior High Program Co-Directors,<br /> <br />Emmelia
    Halpern-Givens and Mike Wilson

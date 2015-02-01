@@ -2,12 +2,12 @@
 <p>Dear Parent(s) or Guardians:</p>
 <p>The Children's staff is very excited about your child(ren) coming to
    this year's Midwest UU Summer Assembly. We offer a safe and fun
-   environment where your children can enjoy the week with old and new
+   environment where your child(ren) can enjoy the week with old and new
    friends. We look forward to welcoming veteran campers and new campers
    alike.</p>
 <p>Kathryn Lukow and Tabitha Rasmussen serve as co-directors of the
    program this year. Tabitha has been attending camp with her two
-   daughters, now ages 11 &amp; 14, for 12 years. She has worked in the
+   daughters, now ages 12 &amp; 15, for 13 years. She has worked in the
    children's program all of those years. At home she is busy as a
    mother and an orchestra teacher with 15 years of experience. Kathryn
    has been coming to MUUSA for seven years and has worked in the
@@ -15,7 +15,7 @@
    and has 29 years experience in education. As directors we facilitate
    the administrative planning and hire caring, experienced adults to
    work with the children. We work in conjunction with Trout Lodge staff
-   to provide programming. We are excited to make the MUUSA 2014 Kid's
+   to provide programming. We are excited to make the MUUSA 2015 Kid's
    Camp every bit as memorable and enjoyable as years prior.</p>
 <p>We hope this letter will answer many of your questions regarding what
    to bring to Summer Assembly, what activities we have planned for your
@@ -31,12 +31,11 @@
    520-240-2088
 </p>
 <h5>Activities</h5>
-<p>Our Children's Program will run from 8:45 am to noon and 1:30 pm to
-   3:30 pm Monday through Friday. Children who begin a session are
-   expected to stay for the duration. Children may be dropped-off for
-   the children's program 15 minutes before the session begins.</p>
+<p>Please pick up a schedule at registration for program times. Children
+   who begin a session are expected to stay for the duration.</p>
 <ul>
-   <li>Nursery: our youngest campers will be cared for in a safe, quiet
+   <li>Nursery: Morning session runs 8:30-12:00, afternoon session runs
+      1:15-3:45. Our youngest campers will be cared for in a safe, quiet
       place with cribs for napping, clean diaper changing tables, and
       adults with caring hearts to play games and read stories. <strong>For
          infants in our nursery</strong> please bring a complete diaper
@@ -53,12 +52,12 @@
       adventure at the various camp facilities. Special activities
       include:
       <ul>
-         <li><strong>1st &amp; 2nd:</strong> Pony rides, hayrack ride,
-            nature center, mini-golf, nature hike, archery, Pike's peak
-            (wall climbing), pirate pontoon, and the boat float.</li>
+         <li><strong>1st &amp; 2nd:</strong> Hayrack ride, nature
+            center, mini-golf, nature hike, archery, pines peak (wall
+            climbing). Pirate pontoon and the boat float.</li>
          <li><strong>3rd &amp; 4th:</strong> Archery, kite making, bike
-            ride, pirate pontoon, mini-golf, boat float, nature hike,
-            Pike's Zip (zip line) and hayrack ride.</li>
+            ride, pirate pontoon, mini-golf, boat float, nature hike and
+            Pine’s Zip (zip line).</li>
          <li><strong>5th &amp; 6th:</strong> Mini-golf, nature hike,
             rocket building/launching, balloon archery, pirate pontoon,
             alpine swing, mud cave, boat float and banana boat.</li>
@@ -76,6 +75,8 @@
    <li>Backpack or bag</li>
    <li>Clothes that can get very dirty and tightly fitting athletic
       shoes for mud cave (5th &amp; 6th only)</li>
+   <li>Long pants and closed toed shoes for pony rides</li>
+   <li>Closed toed shoes for wall climbing, zip line and alpine swing</li>
    <li>Any special medications or prescribed medical devices such as
       inhalers or epi-pens. Please be sure to meet in person with one of
       the program leads to discuss such items.</li>
@@ -94,7 +95,6 @@
       a restraint system or a booster seat.</li>
    <li>Any child more than eighty pounds or four feet, nine inches tall
       may use a vehicle safety belt or booster seat.</li>
-
    <li>Any child required to use a booster seat may be seated in the
       back with a lap belt on if the vehicle does not have a
       lap/shoulder belt for booster seats.</li>

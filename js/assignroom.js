@@ -11,7 +11,7 @@ jQuery(document)
 							return jQuery(this).prop('title');
 						}
 					});
-					$("#submitRooms").button().click(function() {
+					$("#submitRooms").click(function() {
 						submit();
 						return false;
 					});

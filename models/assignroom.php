@@ -72,4 +72,11 @@ class muusla_toolsModelassignroom extends JModelItem
       $db = JFactory::getDBO();
       $db->updateObject("muusa_yearattending", $obj, "id");
    }
+
+   function refresh() {
+      $db = JFactory::getDBO();
+      $query = "CALL muusa_generate_charges";
+      $db->setQuery($query);
+      $db->query();
+   }
 }

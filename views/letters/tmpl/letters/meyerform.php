@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>2014 Junior High Contract/Covenant</h5>
+<h5>2015 Junior High Contract/Covenant</h5>
 <p>
    I, <strong><?php echo "$child->firstname $child->lastname";?> </strong>
    , agree to abide by the laws of the State of Missouri, all local laws
@@ -58,7 +58,7 @@
 </p>
 <div
    style='page-break-after: always; font-size: 1pt;'></div>
-<h5>Midwest Unitarian Universalist Summer Assembly 2014 Junior High
+<h5>Midwest Unitarian Universalist Summer Assembly 2015 Junior High
    Medical Permission Form</h5>
 <p>
    In the event of any serious illness or accident, I give the Camp

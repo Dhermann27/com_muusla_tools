@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>2014 Burt Rules</h5>
+<h5>2015 Burt Rules</h5>
 <p>
    <i>Please bring a completed form for each Burt camper.</i>
 </p>

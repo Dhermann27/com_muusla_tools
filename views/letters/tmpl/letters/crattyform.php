@@ -1,5 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');?>
-<h5>2014 Children's Program Policies</h5>
+<h5>2015 Children's Program Policies</h5>
 <p>Parents: Please take a moment to review the following policies with
    children who will be participating in the MUUSA Children's Program.
    If able, the child should sign the contract at the bottom.</p>
@@ -30,7 +30,7 @@
 </p>
 <div
    style='page-break-after: always; font-size: 1pt;'></div>
-<h5>2014 Nursery/Grade School Medical Permission Form</h5>
+<h5>2015 Nursery/Grade School Medical Permission Form</h5>
 <p>
    In the event of any serious illness or accident, I give the Camp
    Staff or the Camper's Sponsor* permission to seek emergency medical

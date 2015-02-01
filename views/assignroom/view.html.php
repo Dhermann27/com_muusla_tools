@@ -28,6 +28,9 @@ class muusla_toolsViewassignroom extends JViewLegacy
                $model->assignRoom($obj);
             }
          }
+         $model->refresh();
+         
+         
          $this->assignRef('editcamper', $editcamper);
          $campers = $model->getCampers($editcamper);
          $fiscalyearids = array();
